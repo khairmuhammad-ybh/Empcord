@@ -5,7 +5,7 @@ Empcord development assets
 
 |  EndPoint | Version  | Description  |
 |:-:|:-:|:-:|
-| IAM  | v1  | Api  |
+| Identity  | v1  | Api  |
 | Mobile  | v1  | Client  |
 | Web  | v1  | Client  |
 
