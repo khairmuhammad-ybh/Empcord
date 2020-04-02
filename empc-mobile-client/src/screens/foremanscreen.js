@@ -13,9 +13,12 @@ import styles from "../styles/styles";
 // Navigation
 // import { withNavigation } from "react-navigation";
 
+// Redux
+import { store } from "../redux/store";
+
 class ForemanScreen extends Component {
-  static navigationOptions = ({navigation}) => ({
-    title: 963852741,
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam("userName", "NO-ID"),
     headerLeft: () => null,
     headerRight: () => (
       <View style={styles.iconContainer}>
@@ -27,6 +30,14 @@ class ForemanScreen extends Component {
       </View>
     )
   });
+
+  UNSAFE_componentWillMount() {
+    if (store.getState().User.idToken === null){
+      this.props.navigation.navigate("Auth");
+      Alert.alert("Auth Failed", "Authentication failed, please try to login again.")
+    }
+      
+  }
 
   render() {
     return (
