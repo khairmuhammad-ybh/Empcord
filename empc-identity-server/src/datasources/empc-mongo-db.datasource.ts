@@ -6,9 +6,19 @@ import {
 } from '@loopback/core';
 import { juggler } from '@loopback/repository';
 import devConfig from './epmc-mongo-db.datasource.config.development.json';
+import testdsConfig from '../__tests__/datasource/dstest.config.json';
 import config from './empc-mongo-db.datasource.config.json';
 
+
+// Attach the right configuration based on the PROCESS env
 var env = process.argv[process.argv.length - 1];
+var dsConfiguration = () => {
+  switch (env) {
+    case '--dockerize': return config;
+    case '--test': return testdsConfig;
+    default: return devConfig;
+  }
+}
 
 @lifeCycleObserver('datasource')
 export class EmpcMongoDbDataSource extends juggler.DataSource
@@ -17,7 +27,8 @@ export class EmpcMongoDbDataSource extends juggler.DataSource
 
   constructor(
     @inject('datasources.config.EMPCMongoDB', { optional: true })
-    dsConfig: object = (env === '--dockerize') ? config : devConfig
+    dsConfig: object = dsConfiguration()
+    // dsConfig: object = (env === '--dockerize') ? config : devConfig
   ) {
     super(dsConfig);
   }

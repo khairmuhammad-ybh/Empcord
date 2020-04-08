@@ -1,4 +1,4 @@
-import {EmpcIdentityApplication} from '../..';
+import { EmpcIdentityApplication } from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -11,7 +11,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // Empty values (undefined, '') will be ignored by the helper.
     //
     // host: process.env.HOST,
-    // port: +process.env.PORT,
+    // port: 0,
   });
 
   const app = new EmpcIdentityApplication({
@@ -23,10 +23,11 @@ export async function setupApplication(): Promise<AppWithClient> {
 
   const client = createRestAppClient(app);
 
-  return {app, client};
+  return { app, client };
 }
 
 export interface AppWithClient {
   app: EmpcIdentityApplication;
   client: Client;
 }
+

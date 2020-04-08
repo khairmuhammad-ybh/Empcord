@@ -14,7 +14,7 @@
  *
 --------------------------------------------------------------------------*/
 import { getModelSchemaRef } from '@loopback/rest'
-import { NewUser, Owner, User } from '../models';
+import { NewUser, Owner, User, Officer, Worker } from '../models';
 
 /**------------------------------------------------------------------------
  * User Controller Request Reponse specs
@@ -46,17 +46,6 @@ const RegisterResponseSchema = {
   }
 }
 
-// const OwnerCreationResponseSchema = {
-//   type: 'object',
-//   properties: {
-//     _id: { type: 'string' },
-//     userName: { type: 'string' },
-//     email: { type: 'string' },
-//     accountStatus: { type: 'string' },
-//     passwordSet: { type: 'string' }
-//   }
-// }
-
 /**
  *
  */
@@ -67,6 +56,7 @@ export const LoginRequestBody = {
     'application/json': { schema: CredentialFormSchema }
   }
 }
+
 /**
  *
  */
@@ -77,30 +67,6 @@ export const LoginResponse = {
     'application/json': { schema: LoginResponseSchema }
   }
 }
-
-/**
- * This describe the response object schema upon successfully
- * process for rest endpoint '/register'
- */
-export const RegisterResponse = {
-  description: 'The response when user registering to new account setup',
-  required: true,
-  content: {
-    'application/json': { schema: RegisterResponseSchema }
-  }
-}
-
-// export const OfficerCreateResponse = {
-//   description: 'The Response body on Officer creation',
-//   required: true,
-//   content: {
-//     'application/json': {
-//       schema: getModelSchemaRef(Officer, {
-//         title: 'OfficerNew'
-//       })
-//     }
-//   }
-// }
 
 
 /**
@@ -115,38 +81,50 @@ export const RegisterRequestBody = {
   content: {
     'application/json': {
       schema: getModelSchemaRef(NewUser, {
-        title: 'UserNew',
-        exclude: ['_id', 'status', 'createdDt']
+        title: 'NewUserPOST'
       })
     }
   }
 }
 
-// export const OfficerCreateRequestBody = {
-//   description: 'The Officer creation form data',
-//   required: true,
-//   content: {
-//     'application/json': {
-//       schema: getModelSchemaRef(OfficerFormCreation, {
-//         title: 'OfficerReq'
-//       })
-//     }
-//   }
-// }
 
+/**
+ * This describe the response object schema upon successfully
+ * process for rest endpoint '/register'
+ */
+export const RegisterResponse = {
+  description: 'The response when user registering to new account setup',
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(User, {
+        title: 'New User account - Success'
+      })
+    }
+  }
+}
+
+/**
+ * This schema is use only for requesting owner account
+ * creation
+ */
 export const OwnerCreationRequestBody = {
   description: 'The owner creation forms',
   required: true,
   content: {
     'application/json': {
       schema: getModelSchemaRef(NewUser, {
-        title: 'NewUser',
-        exclude: ['_id', 'createdDt', 'status', 'roles', 'rights']
+        title: 'NewOwnerPOST',
+        exclude: ['roles', 'rights']
       })
     }
   }
 }
 
+/**
+ * This is the creation response body upon successful
+ * owner account creation
+ */
 export const OwnerCreationResponse = {
   description: 'The response body for Owner account creation',
   required: true,
@@ -167,6 +145,138 @@ export const MeResponse = {
     'application/json': {
       schema: getModelSchemaRef(User, {
         title: 'Me'
+      })
+    }
+  }
+}
+
+export const OfficerCreateResponse = {
+  description: "The Response body of new Officer",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Officer, {
+        title: 'OfficerCreateResponse'
+      })
+    }
+  }
+}
+
+export const OfficerCreateRequest = {
+  description: "The Request body of new F",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Officer, {
+        title: 'OfficerCreateRequest',
+        exclude: ["_id", "userId", "fullName"]
+      })
+    }
+  }
+}
+
+export const OfficerGetResponse = {
+  description: "The response for Get officer",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Officer, {
+        title: 'OfficerGetResponse'
+      })
+    }
+  }
+}
+
+export const OfficerGetByResponse = {
+  description: "List of Offciers",
+  required: true,
+  content: {
+    'application/json': {
+      schema: { type: 'array', items: { 'x-ts-type': Officer } }
+    }
+  }
+}
+
+export const PatchOfficerResponse = {
+  responses: {
+    '200': {
+      description: 'Officer updated by ID success',
+      content: {
+        'application/json': {
+          schema: { type: 'string' }
+        }
+      }
+    }
+  }
+}
+
+export const PatchOfficerRequestbody = {
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Officer, {
+        title: 'PatchOfficerRequestbody',
+        partial: true
+      })
+    }
+  }
+}
+
+export const CreateWorkerResponse = {
+  description: "Worker Creation - success",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Worker, {
+        title: 'WorkerCreateSuccess'
+      })
+    }
+  }
+}
+
+export const CreateWorkerRequestBody = {
+  description: "Worker Creation Form request",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Worker, {
+        title: 'CreateWorkerRequestBody',
+        exclude: ['_id', "fullName"],
+      })
+    }
+  }
+
+}
+
+export const WorkerGetResponse = {
+  description: "Worker Get",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Worker, {
+        title: 'WorkerGetResponse'
+      })
+    }
+  }
+}
+
+export const WorkerGetByResponse = {
+  description: "List of Worker",
+  required: true,
+  content: {
+    'application/json': {
+      schema: { type: 'array', items: { 'x-ts-type': Worker } }
+    }
+  }
+}
+
+export const PatchWorkerRequestbody = {
+  description: "Path Worker",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(Worker, {
+        title: 'workerUpdatedSucess',
+        partial: true
       })
     }
   }

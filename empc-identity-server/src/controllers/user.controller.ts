@@ -21,18 +21,20 @@ import {
   PasswordHasherBindings,
   TokenServiceBindings,
   UserServiceBindings,
-  FormValidationBindings
+  FormValidationBindings,
+  AccCreationServiceBindings
 }
   from '../bindingKeys';
 import { PasswordHasher } from '../services/passwordhasher';
 import { TokenService, UserService, authenticate } from '@loopback/authentication';
-import { User, Credential, NewUser, Owner, } from '../models';
+import { User, Credential, NewUser, Owner } from '../models';
 import {
   post,
   get,
   requestBody,
   HttpErrors,
   RestBindings,
+  toExpressPath,
 } from '@loopback/rest';
 import {
   LoginResponse,
@@ -79,15 +81,17 @@ export class UserController {
   async ownerCreate(
     @requestBody(OwnerCreationRequestBody) newUser: NewUser,
   ): Promise<Owner> {
+
     var validatedOwnerUser =
       await this.registerFormValidator.validateForm(newUser);
+
     //The hashing the password
     const password = await this.passwordHasher.hashPassword(
       validatedOwnerUser.userChoicePassword
     );
 
     let savedUser: User;
-    //Check if owner account with this email addres exist
+    // Check if owner account with this email addres exist
     let user = await this.userRepository.findOne({
       where: {
         roles: { eq: ['master'] }
@@ -111,7 +115,7 @@ export class UserController {
     validatedOwnerUser.rights = ['all']
     validatedOwnerUser.status = 'active'
 
-    //Save user, excludes the password attributes
+    // Save user, excludes the password attributes
     savedUser = await this.userRepository.create(
       _.omit(validatedOwnerUser,
         ['userChoicePassword', 'userConfirmPassword']))
@@ -130,7 +134,7 @@ export class UserController {
       passwordSet: validatedOwnerUser.userChoicePassword
     })
 
-    log.info(`New <${owner.roles}> user created =>  ${owner._id} : ${owner.email}`)
+    // log.info(`New <${owner.roles}> user created =>  ${owner._id} : ${owner.email}`)
 
     return owner
   }
@@ -152,7 +156,6 @@ export class UserController {
     currentUserProfile: UserProfile,
     @requestBody(RegisterRequestBody) newUser: NewUser,
   ): Promise<User> {
-
     let savedUser: User;
 
     const validatedNewUser =
@@ -161,7 +164,6 @@ export class UserController {
     let foundUser = await this.userRepository.findOne({
       where: { or: [{ userName: newUser.userName }, { email: newUser.email }] }
     })
-
 
     if (foundUser) {
       throw new HttpErrors.Unauthorized('User with username/email already exist in our database')
@@ -201,7 +203,6 @@ export class UserController {
     }
 
     // after checking for rights grant
-
     validatedNewUser.status = 'active'
 
     //Save user, excludes the password attributes
@@ -219,17 +220,10 @@ export class UserController {
         credentialType: 'password-db-authentication'
       })
 
-
-    log.info(`New Admin created =>  ${savedUser._id} : ${savedUser.email}`)
-
     return savedUser;
   }
 
 
-  /**
-   * Endpoint for user login
-   * @param credential
-   */
   @post('/users/login', {
     responses: {
       '200': LoginResponse
@@ -250,7 +244,6 @@ export class UserController {
 
     const idToken = await this.jwtTokenService.generateToken(userProfile);
 
-    //return response
     return {
       idToken: idToken,
       accessToken: accessToken
