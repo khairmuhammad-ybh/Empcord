@@ -11,12 +11,11 @@ import config from './empc-mongo-db.datasource.config.json';
 
 
 // Attach the right configuration based on the PROCESS env
-var env = process.argv[process.argv.length - 1];
+var db_env = process.env.DB_ENV;
 var dsConfiguration = () => {
-  console.log(env)
-  switch (env) {
-    case '--dockerize': return config;
-    case '--test': return testdsConfig;
+  switch (db_env) {
+    case "dockerize": return config;
+    case 'test': return testdsConfig;
     default: return devConfig;
   }
 }
