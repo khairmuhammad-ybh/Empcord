@@ -19,6 +19,8 @@ import { setupApplication } from './test-helper';
 import { givenEmptyDatabase } from '../datasource/databasetest.helper';
 import { givenNewOwner, givenOwnerCredential, givenAdminData, givenAdminCredential, givenOfficerData, givenOfficerEntityData } from '../test-model/data-build.helper';
 import { UserRepository } from '../../repositories';
+import { AssertionError } from 'assert';
+import { assertTargetType } from '@loopback/core';
 
 
 describe('UserController - all endpoint usecases', () => {
@@ -154,6 +156,30 @@ describe('UserController - all endpoint usecases', () => {
             done();
           })
           .catch(err => {
+            done(err);
+          })
+      })
+  })
+
+  it('Get all Officer by its zone', (done) => {
+    client.post('/users/login')
+      .send(givenAdminCredential())
+
+      .then(response => {
+        const body = response.body;
+        expect(body).to.properties('idToken', 'accessToken');
+        const token = body.idToken;
+        client.get('/officers/')
+          .query({
+            where: { zone: "zone A" }
+          })
+          .auth(token, { type: 'bearer' })
+          .then(response => {
+            const body = response;
+            done();
+            // expect(body).to.properties('_id', 'officerId', 'fullName', 'userId', 'zone')
+          }).
+          catch(err => {
             done(err);
           })
       })

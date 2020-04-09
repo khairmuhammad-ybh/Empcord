@@ -100,6 +100,7 @@ export class UserController {
 
     // throw error when owner with same email already exist
     if (user) {
+      console.log(user)
       let error = new HttpErrors.Conflict(
         "OwnerAlreadyExist"
       )
