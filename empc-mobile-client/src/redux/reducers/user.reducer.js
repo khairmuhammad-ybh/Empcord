@@ -4,8 +4,8 @@ import * as ACTION from "../actions/user.action";
 import properties from "../../utils/properties";
 
 const initState = {
-  name: properties.loginUserId_placeholder,
-  password: properties.loginPassword_placeholder,
+  name: null,
+  password: null,
   idToken: null
 };
 
@@ -27,6 +27,26 @@ const UserLoginStore = (state = initState, { type, payload }) => {
       return {
         ...state,
         idToken: payload.idToken
+      };
+    }
+    case ACTION.CLEAR_USER_INFO_STATE: {
+      return {
+        ...state,
+        name: null,
+        password: null,
+        idToken: null
+      };
+    }
+    case ACTION.CLEAR_USER_INFO_NAME_STATE: {
+      return {
+        ...state,
+        name: null
+      };
+    }
+    case ACTION.CLEAR_USER_INFO_PASSWORD_STATE: {
+      return {
+        ...state,
+        password: null
       };
     }
     default:

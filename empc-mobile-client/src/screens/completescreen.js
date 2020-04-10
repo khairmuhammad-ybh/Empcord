@@ -2,168 +2,280 @@ import React, { Component } from "react";
 import { View, Text, Alert, FlatList } from "react-native";
 
 // Progress Bar
-import CompletionBar from "../components/completionBar.component";
+import ProgressBar from "../components/progressBar.component";
 
 // Components
 import CardEvent from "../components/cardEvent.component";
+
+// Icons
+import { Icon } from "react-native-elements";
 
 // Styles
 import styles from "../styles/styles";
 
 // Navigation
-import { withNavigation } from "react-navigation";
+import {
+  withNavigation,
+  NavigationActions,
+  StackActions,
+} from "react-navigation";
+
+// Redux
+import { store } from "../redux/store";
+import * as Action from "../redux/actions";
 
 class CompleteScreen extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       directories: [
         {
-          id: "1",
-          block: "2009",
-          address: "39 High Crossing Plaza",
-          location: "Hoard",
-          status: true
+          _id: 1,
+          assigned: {
+            zone: "zone 1",
+            officer: "Flowers",
+          },
+          status: true,
+          address: {
+            block: 349,
+            streetAddress: "Hampton Place, Cloverdale, Palau, 5112",
+          },
+          location: {
+            qrLoc: "Madison Place",
+            qrGeo: {
+              latitude: 71.253554,
+              longitude: -125.656675,
+            },
+          },
+          geo: {
+            latitude: 8.309004,
+            longitude: -111.844985,
+          },
+          Attendee: null,
         },
         {
-          id: "2",
-          block: "1999",
-          address: "693 Heffernan Trail",
-          location: "La Follette",
-          status: true
+          _id: 2,
+          assigned: {
+            zone: "zone 1",
+            officer: "Eaton",
+          },
+          status: true,
+          address: {
+            block: 436,
+            streetAddress: "Murdock Court, Trucksville, Iowa, 8331",
+          },
+          location: {
+            qrLoc: "Montrose Avenue",
+            qrGeo: {
+              latitude: -48.502619,
+              longitude: -56.610438,
+            },
+          },
+          geo: {
+            latitude: 71.371485,
+            longitude: -95.423675,
+          },
+          Attendee: null,
         },
         {
-          id: "3",
-          block: "1999",
-          address: "44033 Rowland Place",
-          location: "Main",
-          status: true
+          _id: 3,
+          assigned: {
+            zone: "zone 1",
+            officer: "Jackson",
+          },
+          status: false,
+          address: {
+            block: 715,
+            streetAddress: "Sedgwick Place, Darrtown, New Jersey, 1399",
+          },
+          location: {
+            qrLoc: "Sumpter Street",
+            qrGeo: {
+              latitude: 73.73245,
+              longitude: 158.639391,
+            },
+          },
+          geo: {
+            latitude: -48.913043,
+            longitude: -132.130956,
+          },
+          Attendee: null,
         },
         {
-          id: "4",
-          block: "1993",
-          address: "51 Shopko Circle",
-          location: "Menomonie",
-          status: false
+          _id: 4,
+          assigned: {
+            zone: "zone 1",
+            officer: "Payne",
+          },
+          status: false,
+          address: {
+            block: 722,
+            streetAddress: "Plaza Street, Taycheedah, New York, 5121",
+          },
+          location: {
+            qrLoc: "Bay Street",
+            qrGeo: {
+              latitude: 87.797504,
+              longitude: 126.375572,
+            },
+          },
+          geo: {
+            latitude: -68.76948,
+            longitude: -173.937717,
+          },
+          Attendee: null,
         },
         {
-          id: "5",
-          block: "2006",
-          address: "96097 Emmet Point",
-          location: "Tennessee",
-          status: true
+          _id: 5,
+          assigned: {
+            zone: "zone 1",
+            officer: "Patrick",
+          },
+          status: true,
+          address: {
+            block: 261,
+            streetAddress: "Surf Avenue, Summertown, Montana, 1504",
+          },
+          location: {
+            qrLoc: "Central Avenue",
+            qrGeo: {
+              latitude: -62.452696,
+              longitude: 65.781115,
+            },
+          },
+          geo: {
+            latitude: -85.72301,
+            longitude: -107.6588,
+          },
+          Attendee: "Burt",
         },
         {
-          id: "6",
-          block: "2009",
-          address: "6 Prairieview Place",
-          location: "Spaight",
-          status: true
+          _id: 6,
+          assigned: {
+            zone: "zone 1",
+            officer: "Keller",
+          },
+          status: false,
+          address: {
+            block: 133,
+            streetAddress: "Campus Place, Canby, Arizona, 4246",
+          },
+          location: {
+            qrLoc: "Banner Avenue",
+            qrGeo: {
+              latitude: -31.508172,
+              longitude: -161.568692,
+            },
+          },
+          geo: {
+            latitude: 72.748379,
+            longitude: 7.69143,
+          },
+          Attendee: "Rivas",
         },
         {
-          id: "7",
-          block: "1991",
-          address: "07 Melvin Street",
-          location: "Pankratz",
-          status: true
+          _id: 7,
+          assigned: {
+            zone: "zone 1",
+            officer: "Alvarado",
+          },
+          status: false,
+          address: {
+            block: 986,
+            streetAddress: "Jodie Court, Yogaville, Mississippi, 3583",
+          },
+          location: {
+            qrLoc: "Vandervoort Place",
+            qrGeo: {
+              latitude: -79.554969,
+              longitude: -82.302137,
+            },
+          },
+          geo: {
+            latitude: 71.726052,
+            longitude: 135.479055,
+          },
+          Attendee: "Quinn",
         },
         {
-          id: "8",
-          block: "2006",
-          address: "6 Little Fleur Point",
-          location: "Haas",
-          status: true
+          _id: 8,
+          assigned: {
+            zone: "zone 1",
+            officer: "Contreras",
+          },
+          status: true,
+          address: {
+            block: 742,
+            streetAddress: "Conklin Avenue, Cetronia, Ohio, 9282",
+          },
+          location: {
+            qrLoc: "Rogers Avenue",
+            qrGeo: {
+              latitude: -19.758594,
+              longitude: -50.509438,
+            },
+          },
+          geo: {
+            latitude: 74.273161,
+            longitude: -24.034644,
+          },
+          Attendee: null,
         },
         {
-          id: "9",
-          block: "2000",
-          address: "0 Pierstorff Plaza",
-          location: "Calypso",
-          status: true
+          _id: 9,
+          assigned: {
+            zone: "zone 1",
+            officer: "Adams",
+          },
+          status: false,
+          address: {
+            block: 103,
+            streetAddress: "Moore Place, Thermal, Tennessee, 6323",
+          },
+          location: {
+            qrLoc: "Kane Place",
+            qrGeo: {
+              latitude: 60.013915,
+              longitude: -23.641535,
+            },
+          },
+          geo: {
+            latitude: -12.069559,
+            longitude: 12.52593,
+          },
+          Attendee: null,
         },
         {
-          id: "10",
-          block: "2009",
-          address: "917 Lindbergh Avenue",
-          location: "Rutledge",
-          status: false
+          _id: 10,
+          assigned: {
+            zone: "zone 1",
+            officer: "Pollard",
+          },
+          status: false,
+          address: {
+            block: 160,
+            streetAddress: "Krier Place, Harmon, Alaska, 3573",
+          },
+          location: {
+            qrLoc: "Village Road",
+            qrGeo: {
+              latitude: 41.200095,
+              longitude: -71.735968,
+            },
+          },
+          geo: {
+            latitude: -14.263913,
+            longitude: 159.614574,
+          },
+          Attendee: "Lane",
         },
-        {
-          id: "11",
-          block: "1992",
-          address: "305 Stephen Park",
-          location: "John Wall",
-          status: false
-        },
-        {
-          id: "12",
-          block: "1994",
-          address: "0 Trailsway Trail",
-          location: "Grim",
-          status: true
-        },
-        {
-          id: "13",
-          block: "2010",
-          address: "23034 Atwood Place",
-          location: "Fisk",
-          status: true
-        },
-        {
-          id: "14",
-          block: "2012",
-          address: "36810 Northview Hill",
-          location: "Meadow Valley",
-          status: true
-        },
-        {
-          id: "15",
-          block: "2001",
-          address: "55 Summerview Way",
-          location: "Anhalt",
-          status: true
-        },
-        {
-          id: "16",
-          block: "1959",
-          address: "39719 Bartillon Lane",
-          location: "Lien",
-          status: false
-        },
-        {
-          id: "17",
-          block: "1995",
-          address: "96179 Namekagon Junction",
-          location: "Lukken",
-          status: true
-        },
-        {
-          id: "18",
-          block: "2003",
-          address: "77568 Dexter Hill",
-          location: "Orin",
-          status: false
-        },
-        {
-          id: "19",
-          block: "2012",
-          address: "3646 Nova Plaza",
-          location: "Havey",
-          status: true
-        },
-        {
-          id: "20",
-          block: "2003",
-          address: "90 Bobwhite Plaza",
-          location: "Laurel",
-          status: false
-        }
-      ]
+      ],
     };
   }
 
-  onPress = id => {
-    Alert.alert("Card pressed", `card ${id} is pressed`);
+  onPress = (id) => {
+    this.props.navigation.navigate("BlockModel", {id, navigation: this.props.navigation})
   };
 
   componentDidMount() {}
@@ -172,7 +284,11 @@ class CompleteScreen extends Component {
     return (
       <View style={styles.ContentContainer}>
         <View style={styles.progressBar}>
-          <CompletionBar total={30}/>
+          <ProgressBar
+            total={this.state.directories.length}
+            type={"Completed"}
+            progressTrend={true}
+          />
         </View>
         <View style={styles.scrollContainer}>
           <Text style={styles.locationStatus}>Last updated location:</Text>
@@ -184,6 +300,7 @@ class CompleteScreen extends Component {
           renderItem={({ item }) => (
             <CardEvent onPress={this.onPress} dirDetails={item} />
           )}
+          keyExtractor={(item) => item._id.toString()}
         />
       </View>
     );

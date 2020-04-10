@@ -4,7 +4,7 @@ import axios from "axios";
 import { store } from "../../redux/store";
 import * as Actions from "../../redux/actions";
 
-export const loginUser = userData => {
+export const loginUser = (userData) => {
   let api_url;
   return new Promise((resolve, reject) => {
     // Invloke loading [ON]
@@ -15,10 +15,10 @@ export const loginUser = userData => {
       timeout: properties.server_timeout,
       data: {
         userName: userData.name,
-        password: userData.password
-      }
+        password: userData.password,
+      },
     })
-      .then(resp => {
+      .then((resp) => {
         // store token
         store.dispatch(
           Actions.update_user_idtoken_state({ idToken: resp.data.idToken })
@@ -28,24 +28,36 @@ export const loginUser = userData => {
         api_url = properties.api_url_user_me;
         axios({
           headers: {
-            Authorization: `Bearer ${store.getState().User.idToken}`
+            Authorization: `Bearer ${store.getState().User.idToken}`,
           },
           url: api_url,
           method: "GET",
 
-          timeout: properties.server_timeout
+          timeout: properties.server_timeout,
         })
-          .then(resp => {
+          .then((resp) => {
             console.log(resp);
 
             resolve(resp);
           })
-          .catch(err => {
-            console.log(err);
+          .catch((err) => {
+            reject(err.response);
           });
       })
-      .catch(err => {
-        reject(err);
+      .catch((err) => {
+        reject(err.response);
       });
+  });
+};
+
+export const logoutUser = (navigation) => {
+  return new Promise((resolve, reject) => {
+    try {
+      console.log(navigation);
+      store.dispatch(Actions.clear_user_info_state());
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
   });
 };

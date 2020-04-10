@@ -9,10 +9,20 @@ import { Icon } from "react-native-elements";
 import CompleteScreen from "../screens/completescreen";
 import PendingScreen from "../screens/pendingscreen";
 
+// components
+import QrFab from '../components/qrFab.component'
+
 const TabNavigator = createBottomTabNavigator(
   {
     Complete: CompleteScreen,
-    Pending: PendingScreen
+    QrFab: {
+      screen: () => null,
+      navigationOptions: () => ({
+        tabBarLabel: () => null,
+        tabBarIcon: <QrFab />, // Plus button component
+      }),
+    },
+    Pending: PendingScreen,
   },
   {
     initialRouteName: "Complete",
@@ -37,13 +47,13 @@ const TabNavigator = createBottomTabNavigator(
               color={tintColor}
             />
           );
-        }
-      }
+        } 
+      },
     }),
     tabBarOptions: {
       activeTintColor: "#14C3EE",
-      inactiveTintColor: "gray"
-    }
+      inactiveTintColor: "gray",
+    },
   }
 );
 

@@ -57,20 +57,63 @@ class loginScreen extends Component {
           userdata: resp.data
         });
         resp.data.roles.forEach(element => {
-          if (element === "officer")
+          if (element === "officer") {
+            this.clearLoginFields();
+            this.clearReduxUserInfo();
             Alert.alert("User Role", `user is ${element}`);
-          else if (element === "worker")
-            this.props.navigation.navigate("Foreman", resp.data);
-          else
+          } else if (element === "worker") {
+            this.props.navigation.navigate("BottomTabStack", resp.data);
+          } else {
+            this.clearLoginFields();
+            this.clearReduxUserInfo();
             Alert.alert(
               "User Role",
               `please login to web-portal for ${element}`
             );
+          }
         });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err.data.error);
+        let { statusCode, name, message } = err.data.error;
+        console.log(
+          `statusCode: ${statusCode}, ErrorName: ${name}, Message: ${message}`
+        );
+
+        if (statusCode === 401 && message === "Invalid Password") {
+          store.dispatch(Action.clear_user_info_password_state());
+          Alert.alert(`${name}`, `${message}`);
+          this.clearPasswordField();
+        } else if (
+          statusCode === 401 &&
+          message.includes("not a registered User")
+        ) {
+          store.dispatch(Action.clear_user_info_state());
+          Alert.alert(`${name}`, `${message}`);
+          this.clearLoginFields();
+        } else {
+          store.dispatch(Action.clear_user_info_state());
+          Alert.alert(
+            `Error`,
+            `Empty login field(s), please filled both user name and password`
+          );
+          this.clearLoginFields();
+        }
       });
+  };
+
+  // Clear fields
+  clearLoginFields = () => {
+    this.usernameTextInput.clear();
+    this.passwordTextInput.clear();
+  };
+
+  clearPasswordField = () => {
+    this.passwordTextInput.clear();
+  };
+
+  clearReduxUserInfo = () => {
+    store.dispatch(Action.clear_user_info_state());
   };
 
   render() {
@@ -82,8 +125,11 @@ class loginScreen extends Component {
           placeholder={Properties.loginUserId_placeholder}
           onChangeText={name => this.onChangeName(name)}
           returnKeyType={"next"}
+          ref={input => {
+            this.usernameTextInput = input;
+          }}
           onSubmitEditing={() => {
-            this.secondTextInput.focus();
+            this.passwordTextInput.focus();
           }}
           blurOnSubmit={false}
         />
@@ -93,7 +139,7 @@ class loginScreen extends Component {
           onChangeText={password => this.onChangePassword(password)}
           secureTextEntry={true}
           ref={input => {
-            this.secondTextInput = input;
+            this.passwordTextInput = input;
           }}
         />
         <TouchableOpacity

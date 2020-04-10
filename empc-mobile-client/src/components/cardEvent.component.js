@@ -9,7 +9,7 @@ class CardEvent extends Component {
     let { onPress, dirDetails } = this.props
 
     return (
-      <TouchableOpacity style={styles.cardContainer} onPress={() => onPress(dirDetails.id)}>
+      <TouchableOpacity style={styles.cardContainer} onPress={() => onPress(dirDetails._id)}>
         <View style={dirDetails.status ? styles.cardStatus_Complete : styles.cardStatus_Pending}></View>
         <View style={styles.cardContent}>
           <Image
@@ -18,15 +18,15 @@ class CardEvent extends Component {
           />
           <View style={styles.innerCardContent}>
             <Text style={styles.cardDetailsText}>Block: </Text>
-            <Text>{dirDetails.block}</Text>
+            <Text>{dirDetails.address.block}</Text>
           </View>
           <View style={styles.innerCardContent}>
             <Text style={styles.cardDetailsText}>Address: </Text>
-            <Text>{dirDetails.address}</Text>
+            <Text>{dirDetails.address.streetAddress}</Text>
           </View>
           <View style={styles.innerCardContent}>
             <Text style={styles.cardDetailsText}>Location: </Text>
-            <Text>{dirDetails.location}</Text>
+            <Text>{dirDetails.location.qrLoc}</Text>
           </View>
         </View>
       </TouchableOpacity>
