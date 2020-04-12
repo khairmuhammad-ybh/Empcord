@@ -45,6 +45,12 @@ export class Worker extends Entity {
   })
   officerId: string;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  userId: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

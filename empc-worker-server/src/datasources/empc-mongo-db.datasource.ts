@@ -1,3 +1,18 @@
+/**-----------------------------------------------------------------------
+ * Created on Sun Apr 12 2020
+ *
+ * Author : Hanafi Ya'kub
+ *
+ * Date of revision : Sun Apr 12 2020 12:03:13 PM
+ *
+ * Project : EMPC - EMPCORD Projects
+ *
+ * Project Founder : Jatizso
+ *
+ * Copyright (c) 2020 Contributor - Napihup
+ * No license for distribution, intended to be used only within the project
+ *
+--------------------------------------------------------------------------*/
 import {
   inject,
   lifeCycleObserver,
@@ -5,18 +20,16 @@ import {
   ValueOrPromise,
 } from '@loopback/core';
 import { juggler } from '@loopback/repository';
-import devConfig from './epmc-mongo-db.datasource.config.development.json';
-import testdsConfig from '../__tests__/datasource/dstest.config.json';
 import config from './empc-mongo-db.datasource.config.json';
-
-
-// Attach the right configuration based on the PROCESS env
+import testDsConfig from '../__tests__/datasource/empc-db-test-config.json';
+import devConfig from './empc-db-dev-config.json';
+// Attach the right configuration for DB based on the Env process
 var db_env = process.env.DB_ENV;
+
 var dsConfiguration = () => {
-  console.log('ENV running on : ' + db_env);
   switch (db_env) {
     case "dockerize": return config;
-    case 'test': return testdsConfig;
+    case "test": return testDsConfig;
     default: return devConfig;
   }
 }
@@ -28,8 +41,7 @@ export class EmpcMongoDbDataSource extends juggler.DataSource
 
   constructor(
     @inject('datasources.config.EMPCMongoDB', { optional: true })
-    dsConfig: object = dsConfiguration()
-    // dsConfig: object = (env === '--dockerize') ? config : devConfig
+    dsConfig: object = dsConfiguration(),
   ) {
     super(dsConfig);
   }

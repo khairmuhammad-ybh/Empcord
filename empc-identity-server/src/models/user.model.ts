@@ -19,7 +19,7 @@ import { UserCredential } from './user-credential.model';
 import moment from 'moment';
 const uuid = require('uuid/v4');
 
-@model()
+@model({ settings: { strict: false } })
 export class User extends Entity {
   @property({
     type: 'string',

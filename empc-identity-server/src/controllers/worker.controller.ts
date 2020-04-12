@@ -13,13 +13,20 @@
  * No license for distribution, intended to be used only within the project
  *
 --------------------------------------------------------------------------*/
-import { WorkerRepository, UserRepository } from '../repositories';
-import { CreateWorkerResponse, CreateWorkerRequestBody, WorkerGetResponse, WorkerGetByResponse, PatchWorkerRequestbody } from './requestresponse.spec';
-import { HttpErrors, post, get, param, requestBody, getFilterSchemaFor, getWhereSchemaFor, patch } from '@loopback/rest';
+import { WorkerRepository, UserRepository, OfficerRepository } from '../repositories';
+import {
+  CreateWorkerResponse,
+  CreateWorkerRequestBody,
+  WorkerGetResponse,
+  WorkerGetByResponse,
+  PatchWorkerRequestbody,
+  getUserDetailResponse
+} from './requestresponse.spec';
+import { HttpErrors, post, get, param, requestBody, getFilterSchemaFor, getWhereSchemaFor, patch, ParseParamsProvider } from '@loopback/rest';
 import { authenticate } from '@loopback/authentication';
 import { authorize } from '@loopback/authorization';
 import { EMPCAuthorization } from '../services';
-import { Worker } from '../models';
+import { Worker, Officer } from '../models';
 import { repository, Filter, Where } from '@loopback/repository';
 
 export class WorkerController {
@@ -27,7 +34,9 @@ export class WorkerController {
     @repository(WorkerRepository)
     public workerRepository: WorkerRepository,
     @repository(UserRepository)
-    public userRepository: UserRepository
+    public userRepository: UserRepository,
+    @repository(OfficerRepository)
+    public officerRepository: OfficerRepository
   ) { };
 
   @post('/worker/{userId}', {

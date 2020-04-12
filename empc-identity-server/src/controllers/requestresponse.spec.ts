@@ -281,3 +281,15 @@ export const PatchWorkerRequestbody = {
     }
   }
 }
+
+export const getUserDetailResponse = {
+  description: "User Object - settings info GET",
+  required: true,
+  content: {
+    'application/json': {
+      schema: getModelSchemaRef(User, {
+        title: "getUserDetailResponse"
+      })
+    }
+  }
+}

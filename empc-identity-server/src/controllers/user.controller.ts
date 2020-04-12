@@ -43,12 +43,14 @@ import {
   RegisterRequestBody,
   OwnerCreationResponse,
   OwnerCreationRequestBody,
-  MeResponse
+  MeResponse,
+  getUserDetailResponse
 } from './requestresponse.spec';
-import { FormValidator, EMPCAuthorization } from '../services';
+import { FormValidator, EMPCAuthorization, UserInfoService } from '../services';
 import { UserProfile, securityId, SecurityBindings } from '@loopback/security';
 import { log } from '../logging/config';
 import { authorize } from '@loopback/authorization';
+import { service } from '@loopback/core';
 
 export class UserController {
   constructor(
@@ -64,6 +66,8 @@ export class UserController {
     public userService: UserService<User, Credential>,
     @inject(FormValidationBindings.REGISTER_FORM_VALIDATOR)
     public registerFormValidator: FormValidator<any>,
+    @service(UserInfoService)
+    public userInfoService: UserInfoService,
   ) { }
 
 
@@ -268,6 +272,26 @@ export class UserController {
       throw new HttpErrors.Unauthorized('Method not implemented yet');
     }
     return foundUser;
+  }
+
+
+
+  @get('/users/getUserDetails', {
+    responses: {
+      '200': getUserDetailResponse
+    }
+  })
+  @authenticate('jwt')
+  async getUserDetails(
+    @inject(SecurityBindings.USER)
+    currentUserProfile: UserProfile,
+  ): Promise<User> {
+    let userId = currentUserProfile[securityId];
+
+    let user = await this.userRepository.findById(userId);
+
+    let userInfo = await this.userInfoService.createUserInfo(user.roles[0], user);
+    return userInfo;
   }
 
 }
