@@ -1,21 +1,30 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Dimensions, Image, Alert, TouchableOpacity} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 // styles
-import styles from '../styles/styles'
+import styles from "../styles/styles";
 
 class CardEvent extends Component {
   render() {
-    let { onPress, dirDetails } = this.props
+    let { onPress, dirDetails } = this.props;
 
     return (
-      <TouchableOpacity style={styles.cardContainer} onPress={() => onPress(dirDetails._id)}>
-        <View style={dirDetails.status ? styles.cardStatus_Complete : styles.cardStatus_Pending}></View>
+      <TouchableOpacity
+        style={styles.cardContainer}
+        onPress={() => onPress(dirDetails)}
+      >
+        <View
+          style={
+            dirDetails.status
+              ? styles.cardStatus_Complete
+              : styles.cardStatus_Pending
+          }
+        ></View>
         <View style={styles.cardContent}>
-          <Image
+          {/* <Image
             source={require("../../assets/Empcord_logo_1920x1920.png")}
             style={{ width: 100, height: 100, alignSelf: "center"}}
-          />
+          /> */}
           <View style={styles.innerCardContent}>
             <Text style={styles.cardDetailsText}>Block: </Text>
             <Text>{dirDetails.address.block}</Text>
@@ -34,4 +43,3 @@ class CardEvent extends Component {
   }
 }
 export default CardEvent;
-

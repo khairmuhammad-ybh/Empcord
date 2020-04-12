@@ -2,20 +2,20 @@ import React, { Component } from "react";
 import { View, Alert } from "react-native";
 
 // Bottom navigation
-import BottomNavigation from "../navigations/bottomNavigation.component";
+import BottomNavigation from "../../navigations/bottomNavigation.component";
 // FAB
-import QrCodeFAB from "../components/deprecated/qrcodeFAB.component";
+import QrCodeFAB from "../../components/deprecated/qrcodeFAB.component";
 // Icons
 import { Icon } from "react-native-elements";
 // styles
-import styles from "../styles/styles";
+import styles from "../../styles/styles";
 
 // Navigation
 // import { withNavigation } from "react-navigation";
 
 // Redux
-import { store } from "../redux/store";
-import * as Action from "../redux/actions";
+import { store } from "../../redux/store";
+import * as Action from "../../redux/actions";
 
 class ForemanScreen extends Component {
 

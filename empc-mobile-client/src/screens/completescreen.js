@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Alert, FlatList } from "react-native";
+import { View, Text, FlatList } from "react-native";
 
 // Progress Bar
 import ProgressBar from "../components/progressBar.component";
@@ -7,25 +7,13 @@ import ProgressBar from "../components/progressBar.component";
 // Components
 import CardEvent from "../components/cardEvent.component";
 
-// Icons
-import { Icon } from "react-native-elements";
-
 // Styles
 import styles from "../styles/styles";
 
 // Navigation
-import {
-  withNavigation,
-  NavigationActions,
-  StackActions,
-} from "react-navigation";
-
-// Redux
-import { store } from "../redux/store";
-import * as Action from "../redux/actions";
+import { withNavigation } from "react-navigation";
 
 class CompleteScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -274,8 +262,8 @@ class CompleteScreen extends Component {
     };
   }
 
-  onPress = (id) => {
-    this.props.navigation.navigate("BlockModel", {id, navigation: this.props.navigation})
+  onPress = (dirDetails) => {
+    this.props.navigation.navigate("BlockModel", { dirData: dirDetails });
   };
 
   componentDidMount() {}
