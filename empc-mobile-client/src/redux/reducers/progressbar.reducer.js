@@ -11,7 +11,7 @@ const initState = {
 const progressbarStatusStore = (state = initState, { type, payload }) => {
   switch (type) {
     case ACTION.SET_TOTAL_PROGRESS_BAR_STATE: {
-      console.log(payload);
+      // console.log(payload);
       if (payload.progressTrend) {
         return {
           ...state,

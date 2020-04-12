@@ -15,7 +15,7 @@ function initAppJson() {
       err
     ) {
       if (err) reject(err);
-      console.log(JSON.stringify(appObj, null, 2));
+      // console.log(JSON.stringify(appObj, null, 2));
       console.log("Creating file " + fileName);
       resolve();
     });
@@ -41,7 +41,7 @@ function amendAppJson() {
           JSON.stringify(file, null, 2),
           function writeJSON(err) {
             if (err) reject(err);
-            console.log(JSON.stringify(appObj, null, 2));
+            // console.log(JSON.stringify(appObj, null, 2));
             console.log("Modifying file" + fileName);
             resolve("API KEY INJECTED");
           }

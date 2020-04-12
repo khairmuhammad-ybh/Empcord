@@ -51,11 +51,11 @@ class loginScreen extends Component {
     userAuth
       .loginUser(usrData)
       .then(resp => {
-        console.log({
-          status: resp.status,
-          roles: resp.data.roles,
-          userdata: resp.data
-        });
+        // console.log({
+        //   status: resp.status,
+        //   roles: resp.data.roles,
+        //   userdata: resp.data
+        // });
         resp.data.roles.forEach(element => {
           if (element === "officer") {
             this.clearLoginFields();
@@ -76,9 +76,9 @@ class loginScreen extends Component {
       .catch(err => {
         // console.log(err.data.error);
         let { statusCode, name, message } = err.data.error;
-        console.log(
-          `statusCode: ${statusCode}, ErrorName: ${name}, Message: ${message}`
-        );
+        // console.log(
+        //   `statusCode: ${statusCode}, ErrorName: ${name}, Message: ${message}`
+        // );
 
         if (statusCode === 401 && message === "Invalid Password") {
           store.dispatch(Action.clear_user_info_password_state());

@@ -37,8 +37,8 @@ class CompleteScreen extends Component {
             },
           },
           geo: {
-            latitude: 8.309004,
-            longitude: -111.844985,
+            latitude: 1.431830,
+            longitude: 103.780320,
           },
           Attendee: null,
         },

@@ -258,12 +258,12 @@ class PendingScreen extends Component {
           },
           Attendee: "Lane",
         },
-      ]
+      ],
     };
   }
 
-  onPress = id => {
-    this.props.navigation.navigate("BlockModel", {id, navigation: this.props.navigation})
+  onPress = (dirDetails) => {
+    this.props.navigation.navigate("BlockModel", { dirData: dirDetails });
   };
 
   componentDidMount() {}
@@ -272,7 +272,11 @@ class PendingScreen extends Component {
     return (
       <View style={styles.ContentContainer}>
         <View style={styles.progressBar}>
-          <ProgressBar total={this.state.directories.length} type={'Pending'} progressTrend={false}/>
+          <ProgressBar
+            total={this.state.directories.length}
+            type={"Pending"}
+            progressTrend={false}
+          />
         </View>
         <View style={styles.scrollContainer}>
           <Text style={styles.locationStatus}>Last updated location:</Text>
@@ -284,7 +288,7 @@ class PendingScreen extends Component {
           renderItem={({ item }) => (
             <CardEvent onPress={this.onPress} dirDetails={item} />
           )}
-          keyExtractor={item => item._id.toString()}
+          keyExtractor={(item) => item._id.toString()}
         />
       </View>
     );

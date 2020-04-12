@@ -4,12 +4,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   logoImg: {
     top: -25,
     width: 200,
-    height: 200
+    height: 200,
   },
   loginTextInput: {
     margin: 10,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderStyle: "solid",
     borderWidth: 1,
-    width: "80%"
+    width: "80%",
   },
   loginButton: {
     alignItems: "center",
@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   resetPassword: {
-    color: "#316EE1"
+    color: "#316EE1",
   },
   resetLinkContainer: {
     width: "80%",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   dashboardContainer: {
-    flex: 1
+    flex: 1,
   },
   contentContainer: {
     flex: 11,
@@ -44,37 +44,37 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bottomNav: {
-    fontSize: 18
+    fontSize: 18,
   },
   iconContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    width: 50
+    width: 50,
   },
   // CompleteScreen Style
   ContentContainer: {
-    flex: 1
+    flex: 1,
   },
   progressBar: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 25
+    padding: 25,
   },
   scrollContainer: {
-    paddingStart: 20
+    paddingStart: 20,
   },
   locationStatus: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   scrollableContent: {
     alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
-    backgroundColor: "#511313"
+    backgroundColor: "#511313",
   },
   cardContentContainer: {
     marginTop: 15,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   // Card Component style
   cardContainer: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#fff",
     borderWidth: 2,
-    marginBottom: 10
+    marginBottom: 10,
   },
   cardStatus_Complete: {
     backgroundColor: "#58DD7E",
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     margin: 10,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
   },
   cardStatus_Pending: {
     backgroundColor: "#F0E47A",
@@ -99,27 +99,48 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     margin: 10,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
   },
   cardContent: {
-    padding: 10
+    padding: 10,
   },
   innerCardContent: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
   cardDetailsText: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   // ProgressBar styles
   progressBarButtonContainer: {
-    marginTop: 15
+    marginTop: 15,
   },
   progressLabel: {
     // color: "#999",
     fontSize: 14,
     fontWeight: "500",
     marginBottom: 10,
-    alignSelf: "center"
+    alignSelf: "center",
+  },
+  // Block details
+  cardBlockDetailsText: {
+    paddingBottom: 10,
+  },
+  cardBlockDivider: {
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  cardDivider: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    marginBottom : 5
+  },
+  // Map Marker styles
+  mapCalloutTitle : {
+    alignSelf: "center",
+    fontSize: 16
+  },
+  mapCalloutDesc : {
+    fontSize: 12
   }
 });
 

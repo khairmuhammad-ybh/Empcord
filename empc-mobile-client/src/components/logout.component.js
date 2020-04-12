@@ -21,7 +21,7 @@ const LogoutComponent = (navigation) => {
             .logoutUser(navigation)
             .then(navigation.navigate("Auth"))
             .catch((err) => {
-              console.log(err);
+              // console.log(err);
             })
         }
       />

@@ -36,7 +36,7 @@ export const loginUser = (userData) => {
           timeout: properties.server_timeout,
         })
           .then((resp) => {
-            console.log(resp);
+            // console.log(resp);
 
             resolve(resp);
           })
@@ -53,7 +53,7 @@ export const loginUser = (userData) => {
 export const logoutUser = (navigation) => {
   return new Promise((resolve, reject) => {
     try {
-      console.log(navigation);
+      // console.log(navigation);
       store.dispatch(Actions.clear_user_info_state());
       resolve();
     } catch (err) {
