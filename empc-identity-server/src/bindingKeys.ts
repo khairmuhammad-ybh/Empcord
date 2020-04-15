@@ -21,6 +21,7 @@ import { FormValidator } from './services';
 import fs from 'fs';
 import path from 'path';
 import { AccountCreation } from './services/account-creation.interface';
+import { ApiTokenService } from './services/api-token.service';
 // import { CreationFormValidation } from './services/creation-form-validator';
 
 
@@ -45,7 +46,7 @@ export namespace TokenServiceBindings {
   export const API_VERIFY_KEY = BindingKey.create<Buffer>(
     'api.verify.key'
   )
-  export const API_TOKEN_SERVICE = BindingKey.create<TokenService>(
+  export const API_TOKEN_SERVICE = BindingKey.create<ApiTokenService>(
     'api.token.service'
   )
   export const API_TOKEN_EXPIRES_IN = BindingKey.create<string>(

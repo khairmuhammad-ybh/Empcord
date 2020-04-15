@@ -85,7 +85,7 @@ export class EmpcIdentityApplication extends BootMixin(
 * to binds all artifacts for this application
 */
   setupBindings(): void {
-    this.bind(TokenServiceBindings.API_SIGN_KEY).to(TokenServiceContants.TOKEN_PRIVATE_KEY);
+    this.bind(TokenServiceBindings.API_SIGN_KEY).to(TokenServiceContants.API_TOKEN_PRIVATE_KEY);
     this.bind(TokenServiceBindings.API_VERIFY_KEY).to(TokenServiceContants.API_TOKEN_PUBLIC_KEY);
     this.bind(TokenServiceBindings.API_TOKEN_EXPIRES_IN).to(TokenServiceContants.API_TOKEN_EXPIRES_IN_VALUE);
     this.bind(TokenServiceBindings.API_TOKEN_SERVICE).toClass(ApiTokenService);
