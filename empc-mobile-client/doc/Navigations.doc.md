@@ -1,4 +1,5 @@
-#Navigations
+# Navigations
+
 Use for navigation **(React Navigation v5)** in the application
 
 ---
@@ -14,10 +15,10 @@ Use for navigation **(React Navigation v5)** in the application
 | react-native-safe-area-context      | ^0.7.3  |
 | react-native-screens                | ^2.5.0  |
 
-###Navigators
+### Navigators
 Navigators used to navigate throughout the entire application, created multiple stacks of navigators from the dependencies (_react-navigation-stack_ & _react-navigation-tabs_)
 
-####Stacks
+#### Stacks
 
 - RootStack - created with _react-navigation_
 - AuthStack - created with _react-navigation-stack_
@@ -43,9 +44,11 @@ const SwitchNavigator = createSwitchNavigator(
 const SwitchContainer = createAppContainer(SwitchNavigator);
 ```
 
-#####Details
+##### Details
 Navigator name: `'RootStack'`
+
 Navigation stack: `App` & `Auth`
+
 Source code:
 
 ```
@@ -93,7 +96,9 @@ export default App;
 ```
 
 Navigator name: `"App"`
+
 Navigation stack: `AppNavigation`
+
 Source code:
 
 ```
@@ -189,7 +194,9 @@ export default AppNavigation;
 ```
 
 Navigator name: `"Auth"`
+
 Navigation stack: `AuthNavigation`
+
 Source code:
 
 ```

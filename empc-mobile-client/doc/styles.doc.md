@@ -1,4 +1,5 @@
-#Styles
+# Styles
+
 Use of external stylesheets to segregate for different screens
 
 ---
@@ -14,26 +15,34 @@ Use of external stylesheets to segregate for different screens
 | blockModel  | blockModel.styles.js  |
 | map         | map.styles.js         |
 
-###Usage
+### Usage
+
 **main.styles.js**
+
 General purpose use, re-usable stylesheet to be use when in need to to implement common styling to a component
 
 **dashboard.styles.js**
+
 Styles used solely for dashboard screen (after login screen)
 
 **progressBar.styles.js**
+
 Styles used for _progressBar_ styling and alignment with the dashboard screen
 
 **card.styles.js**
+
 Styles used for creating a _card_ and to be populated by _FlatList_ component in dashboard screen
 
 **blockModel.styles.js**
+
 Styles used for creating a larger _card_ component for viewing full details of block information when user tapped on the _card_ populated by _FlatList_ from dashboard screen
 
 **map.styles.js**
+
 Styles used for setting size and alignment for _Map_ component that is being displayed in _blockModelScreen_ screen when user tapped on the _card_ populated by _FlatList_ from dashboard screen
 
-###Source code
+### Source code
+
 **main.styles.js**
 
 ```

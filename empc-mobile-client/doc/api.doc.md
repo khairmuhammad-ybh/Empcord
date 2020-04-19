@@ -1,4 +1,5 @@
-#API
+# API
+
 Api endpoint to connect the the server for transaction of data between the client and server
 
 ---
@@ -7,18 +8,19 @@ Api endpoint to connect the the server for transaction of data between the clien
 | ---- | -------------- |
 | user | Authentication |
 
-###Dependencies
+### Dependencies
 
 | Dependencies | Version |
 | ------------ | ------- |
 | axios        | ^0.19.2 |
 | redux        | ^4.0.5  |
 
-###Usage
+### Usage
+
 **user**
 Use for authenticating the user before accessing the application and also for any user related information that need to be retrieved
 
-####Source code
+#### Source code
 
 ```
 import properties from "../../utils/props.utils";

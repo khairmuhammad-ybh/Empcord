@@ -1,6 +1,6 @@
-#Empcord-Mobile-Client
+# Empcord-Mobile-Client
 
-##Project overview status and backlog
+## Project overview status and backlog
 
 - [x] Map implementation
 - [x] Restructure navigation
