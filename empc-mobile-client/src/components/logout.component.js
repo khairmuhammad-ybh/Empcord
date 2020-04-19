@@ -1,26 +1,26 @@
-import React from "react";
-import { View } from "react-native";
+import React, {Component} from 'react';
+import {View} from 'react-native';
 
 // Icons
-import { Icon } from "react-native-elements";
+import {Icon} from 'react-native-elements';
 
 // styles
-import styles from "../styles/styles";
+import styles from '../styles/main.styles';
 
 // services
-import * as userAuth from "../apis/authentication/user.auth";
+import * as userAuth from '../apis/authentication/user.auth';
 
-const LogoutComponent = (navigation) => {
+const LogoutComponent = navigation => {
   return (
     <View style={styles.iconContainer}>
       <Icon
-        type={Platform.OS === "ios" ? "ionicon" : "material-community"}
-        name={Platform.OS === "ios" ? "ios-log-out" : "logout"}
+        type={Platform.OS === 'ios' ? 'ionicon' : 'material-community'}
+        name={Platform.OS === 'ios' ? 'ios-log-out' : 'logout'}
         onPress={() =>
           userAuth
-            .logoutUser(navigation)
-            .then(navigation.navigate("Auth"))
-            .catch((err) => {
+            .logoutUser()
+            .then(navigation.navigate('Auth'))
+            .catch(err => {
               // console.log(err);
             })
         }

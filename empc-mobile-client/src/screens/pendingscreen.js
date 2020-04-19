@@ -8,10 +8,10 @@ import ProgressBar from "../components/progressBar.component";
 import CardEvent from "../components/cardEvent.component";
 
 // Styles
-import styles from "../styles/styles";
+import styles from "../styles/dashboard.style";
 
 // Navigation
-import { withNavigation } from "react-navigation";
+// import { withNavigation } from "react-navigation";
 
 class PendingScreen extends Component {
   constructor(props) {
@@ -258,6 +258,30 @@ class PendingScreen extends Component {
           },
           Attendee: "Lane",
         },
+        {
+          _id: 11,
+          assigned: {
+            zone: "zone 1",
+            officer: "Pollard",
+          },
+          status: false,
+          address: {
+            block: 160,
+            streetAddress: "Krier Place, Harmon, Alaska, 3573",
+          },
+          location: {
+            qrLoc: "Village Road",
+            qrGeo: {
+              latitude: 41.200095,
+              longitude: -71.735968,
+            },
+          },
+          geo: {
+            latitude: -14.263913,
+            longitude: 159.614574,
+          },
+          Attendee: "Lane",
+        },
       ],
     };
   }
@@ -294,4 +318,4 @@ class PendingScreen extends Component {
     );
   }
 }
-export default withNavigation(PendingScreen);
+export default PendingScreen;

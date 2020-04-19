@@ -1,53 +1,73 @@
-import React, { Component } from "react";
-import { View, Dimensions, Button, Text } from "react-native";
+import React, {Component} from 'react';
+import {View, Dimensions, Button, Text} from 'react-native';
 
-import ProgressBarAnimated from "react-native-progress-bar-animated";
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
+import * as Progress from 'react-native-progress';
 
 // redux
-import { connect } from "react-redux";
-import { store } from "../redux/store";
-import * as Actions from "../redux/actions";
+import {connect} from 'react-redux';
+import {store} from '../redux/store';
+import * as Actions from '../redux/actions';
 
 // styles
-import styles from "../styles/styles";
+import styles from '../styles/progressBar.styles';
 
 class CompletionBar extends Component {
   componentDidMount() {
-    let { total, progressTrend } = this.props;
+    let {total, progressTrend} = this.props;
     // console.log(`Total: ${total} progressTrend: ${progressTrend}`);
 
     store.dispatch(
-      Actions.set_total_progress_bar_state({ total, progressTrend })
+      Actions.set_total_progress_bar_state({total, progressTrend}),
     );
   }
 
   updateProgressBar = () => {
-    let { progressTrend } = this.props;
+    let {progressTrend} = this.props;
     if (progressTrend) {
       store.dispatch(Actions.update_incremental_progress_bar_state());
     } else {
       store.dispatch(Actions.update_decremental_progress_bar_state());
     }
 
-    store.dispatch(Actions.update_progress_bar_state({ progressTrend }));
+    store.dispatch(Actions.update_progress_bar_state({progressTrend}));
   };
 
   render() {
-    const barWidth = Dimensions.get("screen").width - 30;
+    const barWidth = Dimensions.get('screen').width - 30;
 
-    let { type, progressTrend } = this.props;
+    let {type, progressTrend} = this.props;
 
     return (
       <View>
         <View>
           <Text style={styles.progressLabel}>
-            {type}:{" "}
+            {type}:{' '}
             {progressTrend
               ? store.getState().ProgressBar.completed
               : store.getState().ProgressBar.pending}
             /{store.getState().ProgressBar.total}
           </Text>
-          <ProgressBarAnimated
+          <Progress.Bar
+            progress={
+              progressTrend
+                ? store.getState().ProgressBar.progressCompleted
+                : store.getState().ProgressBar.progressPending
+            }
+            width={barWidth}
+            height={13}
+            borderRadius={6}
+            color={'rgba(20,140,240, 1)'}
+          />
+          <View style={styles.progressBarButtonContainer}>
+            <View style={styles.buttonInner}>
+              <Button
+                title={progressTrend ? "Increase Progress bar" : "Decrease Progress bar"}
+                onPress={() => this.updateProgressBar()}
+              />
+            </View>
+          </View>
+          {/* <ProgressBarAnimated
             width={barWidth}
             value={
               progressTrend
@@ -55,7 +75,7 @@ class CompletionBar extends Component {
                 : store.getState().ProgressBar.progressPending
             }
             backgroundColorOnComplete="#6CC644"
-          />
+          /> */}
           {/* <View style={styles.progressBarButtonContainer}>
             <View style={styles.buttonInner}>
               <Button
@@ -71,10 +91,10 @@ class CompletionBar extends Component {
 }
 
 const stp = store => {
-  let { ProgressBar } = store;
+  let {ProgressBar} = store;
 
   return {
-    progressBarState: ProgressBar
+    progressBarState: ProgressBar,
   };
 };
 

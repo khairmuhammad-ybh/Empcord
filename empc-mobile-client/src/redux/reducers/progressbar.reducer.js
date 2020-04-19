@@ -1,62 +1,73 @@
-import * as ACTION from "../actions/progressbar.action";
+import * as ACTION from '../actions/progressbar.action';
 
 const initState = {
   progressCompleted: 0,
-  progressPending: 100,
+  progressPending: 1,
   completed: 0,
   pending: 0,
-  total: 0
+  total: 0,
 };
 
-const progressbarStatusStore = (state = initState, { type, payload }) => {
+const progressbarStatusStore = (state = initState, {type, payload}) => {
   switch (type) {
     case ACTION.SET_TOTAL_PROGRESS_BAR_STATE: {
-      // console.log(payload);
-      if (payload.progressTrend) {
-        return {
-          ...state,
-          total: payload.total
-        };
+      if (state.total != 0) {
+        return {...state, pending: state.total};
       } else {
-          if(state.pending === 0){
+        if (payload.progressTrend) {
+          return {
+            ...state,
+            total: payload.total,
+          };
+        } else {
+          if (state.pending === 0) {
             return {
-                ...state,
-                total: payload.total,
-                pending: payload.total
-              };
-          }else{
+              ...state,
+              total: payload.total,
+              pending: payload.total,
+            };
+          } else {
             return {
-                ...state,
-                total: payload.total
-              };
+              ...state,
+              total: payload.total,
+            };
           }
-        
+        }
       }
     }
     case ACTION.UPDATE_INCREMENTAL_PROGRESS_BAR_STATE: {
-      return {
-        ...state,
-        completed: state.completed + 1
-      };
+      if (state.completed === state.total) {
+        return {...state};
+      } else {
+        return {
+          ...state,
+          completed: state.completed + 1,
+        };
+      }
     }
+
     case ACTION.UPDATE_DECREMENTAL_PROGRESS_BAR_STATE: {
-      return {
-        ...state,
-        pending: state.pending - 1
-      };
+      if (state.pending === 0) {
+        return {...state};
+      } else {
+        return {
+          ...state,
+          pending: state.pending - 1,
+        };
+      }
     }
     case ACTION.UPDATE_PROGRESS_BAR_STATE: {
       if (payload.progressTrend) {
-        let newProgress = (state.completed / state.total) * 100;
+        let newProgress = state.progressCompleted + 1 / state.total;
         return {
           ...state,
-          progressCompleted: newProgress
+          progressCompleted: newProgress,
         };
       } else {
-        let newProgress = (state.pending / state.total) * 100;
+        let newProgress = state.progressPending - 1 / state.total;
         return {
           ...state,
-          progressPending: newProgress
+          progressPending: newProgress,
         };
       }
     }

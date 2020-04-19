@@ -1,49 +1,71 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
+import React, {Component} from 'react';
 
-export default function QrScanner({ navigation }) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
+import {StyleSheet, Text, View, TouchableOpacity, Linking} from 'react-native';
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+// import QRCodeScanner from 'react-native-qrcode-scanner';
+import {QRScannerView} from 'react-native-qrcode-scanner-view';
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    // Add logic to store data into server
-    navigation.goBack();
+export default function QrScanner({navigation}) {
+  // const onSuccess = e => {
+  //   console.log(e)
+  //   navigation.goBack()
+  // };
+  renderTitleBar = () => (
+    <Text style={{color: 'white', textAlign: 'center', padding: 16}}>
+      Title
+    </Text>
+  );
+
+  renderMenu = () => (
+    <Text style={{color: 'white', textAlign: 'center', padding: 16}}>Menu</Text>
+  );
+
+  barcodeReceived = event => {
+    console.log('Type: ' + event.type + '\nData: ' + event.data);
+    navigation.goBack()
   };
 
-  if (hasPermission === null) {
-    // Change to loading
-    return <Text>Requesting for camera permission</Text>;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
 
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "flex-end",
-      }}
-    >
-      <BarCodeScanner
-        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
+    // <QRCodeScanner
+    //   onRead={onSuccess}
+    //   // flashMode={QRCodeScanner.Constants.FlashMode.torch}
+    //   topContent={
+    //     <Text style={styles.centerText}>
+    //       Go to{' '}
+    //       <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on
+    //       your computer and scan the QR code.
+    //     </Text>
+    //   }
+    // />
+    <View style={{flex: 1}}>
+      <QRScannerView
+        onScanResult={barcodeReceived}
+        // renderHeaderView={renderTitleBar}
+        // renderFooterView={renderMenu}
+        scanBarAnimateReverse={true}
+        hintText={null}
       />
-
-      {/* NOT IN USE */}
-      {/* {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />} */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  centerText: {
+    flex: 1,
+    fontSize: 18,
+    padding: 32,
+    color: '#777',
+  },
+  textBold: {
+    fontWeight: '500',
+    color: '#000',
+  },
+  buttonText: {
+    fontSize: 21,
+    color: 'rgb(0,122,255)',
+  },
+  buttonTouchable: {
+    padding: 16,
+  },
+});

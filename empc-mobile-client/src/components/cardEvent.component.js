@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 
 // styles
-import styles from "../styles/styles";
+import styles from "../styles/card.styles";
 
 class CardEvent extends Component {
   render() {

@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import React, {Component} from 'react';
+import {View, Text, FlatList} from 'react-native';
 
 // Progress Bar
-import ProgressBar from "../components/progressBar.component";
+import ProgressBar from '../components/progressBar.component';
 
 // Components
-import CardEvent from "../components/cardEvent.component";
+import CardEvent from '../components/cardEvent.component';
 
 // Styles
-import styles from "../styles/styles";
+import styles from '../styles/dashboard.style';
 
 // Navigation
-import { withNavigation } from "react-navigation";
+// import { withNavigation } from "react-navigation";
 
 class CompleteScreen extends Component {
   constructor(props) {
@@ -21,40 +21,40 @@ class CompleteScreen extends Component {
         {
           _id: 1,
           assigned: {
-            zone: "zone 1",
-            officer: "Flowers",
+            zone: 'zone 1',
+            officer: 'Flowers',
           },
           status: true,
           address: {
             block: 349,
-            streetAddress: "Hampton Place, Cloverdale, Palau, 5112",
+            streetAddress: 'Hampton Place, Cloverdale, Palau, 5112',
           },
           location: {
-            qrLoc: "Madison Place",
+            qrLoc: 'Madison Place',
             qrGeo: {
               latitude: 71.253554,
               longitude: -125.656675,
             },
           },
           geo: {
-            latitude: 1.431830,
-            longitude: 103.780320,
+            latitude: 1.43183,
+            longitude: 103.78032,
           },
           Attendee: null,
         },
         {
           _id: 2,
           assigned: {
-            zone: "zone 1",
-            officer: "Eaton",
+            zone: 'zone 1',
+            officer: 'Eaton',
           },
           status: true,
           address: {
             block: 436,
-            streetAddress: "Murdock Court, Trucksville, Iowa, 8331",
+            streetAddress: 'Murdock Court, Trucksville, Iowa, 8331',
           },
           location: {
-            qrLoc: "Montrose Avenue",
+            qrLoc: 'Montrose Avenue',
             qrGeo: {
               latitude: -48.502619,
               longitude: -56.610438,
@@ -69,16 +69,16 @@ class CompleteScreen extends Component {
         {
           _id: 3,
           assigned: {
-            zone: "zone 1",
-            officer: "Jackson",
+            zone: 'zone 1',
+            officer: 'Jackson',
           },
           status: false,
           address: {
             block: 715,
-            streetAddress: "Sedgwick Place, Darrtown, New Jersey, 1399",
+            streetAddress: 'Sedgwick Place, Darrtown, New Jersey, 1399',
           },
           location: {
-            qrLoc: "Sumpter Street",
+            qrLoc: 'Sumpter Street',
             qrGeo: {
               latitude: 73.73245,
               longitude: 158.639391,
@@ -93,16 +93,16 @@ class CompleteScreen extends Component {
         {
           _id: 4,
           assigned: {
-            zone: "zone 1",
-            officer: "Payne",
+            zone: 'zone 1',
+            officer: 'Payne',
           },
           status: false,
           address: {
             block: 722,
-            streetAddress: "Plaza Street, Taycheedah, New York, 5121",
+            streetAddress: 'Plaza Street, Taycheedah, New York, 5121',
           },
           location: {
-            qrLoc: "Bay Street",
+            qrLoc: 'Bay Street',
             qrGeo: {
               latitude: 87.797504,
               longitude: 126.375572,
@@ -117,16 +117,16 @@ class CompleteScreen extends Component {
         {
           _id: 5,
           assigned: {
-            zone: "zone 1",
-            officer: "Patrick",
+            zone: 'zone 1',
+            officer: 'Patrick',
           },
           status: true,
           address: {
             block: 261,
-            streetAddress: "Surf Avenue, Summertown, Montana, 1504",
+            streetAddress: 'Surf Avenue, Summertown, Montana, 1504',
           },
           location: {
-            qrLoc: "Central Avenue",
+            qrLoc: 'Central Avenue',
             qrGeo: {
               latitude: -62.452696,
               longitude: 65.781115,
@@ -136,21 +136,21 @@ class CompleteScreen extends Component {
             latitude: -85.72301,
             longitude: -107.6588,
           },
-          Attendee: "Burt",
+          Attendee: 'Burt',
         },
         {
           _id: 6,
           assigned: {
-            zone: "zone 1",
-            officer: "Keller",
+            zone: 'zone 1',
+            officer: 'Keller',
           },
           status: false,
           address: {
             block: 133,
-            streetAddress: "Campus Place, Canby, Arizona, 4246",
+            streetAddress: 'Campus Place, Canby, Arizona, 4246',
           },
           location: {
-            qrLoc: "Banner Avenue",
+            qrLoc: 'Banner Avenue',
             qrGeo: {
               latitude: -31.508172,
               longitude: -161.568692,
@@ -160,21 +160,21 @@ class CompleteScreen extends Component {
             latitude: 72.748379,
             longitude: 7.69143,
           },
-          Attendee: "Rivas",
+          Attendee: 'Rivas',
         },
         {
           _id: 7,
           assigned: {
-            zone: "zone 1",
-            officer: "Alvarado",
+            zone: 'zone 1',
+            officer: 'Alvarado',
           },
           status: false,
           address: {
             block: 986,
-            streetAddress: "Jodie Court, Yogaville, Mississippi, 3583",
+            streetAddress: 'Jodie Court, Yogaville, Mississippi, 3583',
           },
           location: {
-            qrLoc: "Vandervoort Place",
+            qrLoc: 'Vandervoort Place',
             qrGeo: {
               latitude: -79.554969,
               longitude: -82.302137,
@@ -184,21 +184,21 @@ class CompleteScreen extends Component {
             latitude: 71.726052,
             longitude: 135.479055,
           },
-          Attendee: "Quinn",
+          Attendee: 'Quinn',
         },
         {
           _id: 8,
           assigned: {
-            zone: "zone 1",
-            officer: "Contreras",
+            zone: 'zone 1',
+            officer: 'Contreras',
           },
           status: true,
           address: {
             block: 742,
-            streetAddress: "Conklin Avenue, Cetronia, Ohio, 9282",
+            streetAddress: 'Conklin Avenue, Cetronia, Ohio, 9282',
           },
           location: {
-            qrLoc: "Rogers Avenue",
+            qrLoc: 'Rogers Avenue',
             qrGeo: {
               latitude: -19.758594,
               longitude: -50.509438,
@@ -213,16 +213,16 @@ class CompleteScreen extends Component {
         {
           _id: 9,
           assigned: {
-            zone: "zone 1",
-            officer: "Adams",
+            zone: 'zone 1',
+            officer: 'Adams',
           },
           status: false,
           address: {
             block: 103,
-            streetAddress: "Moore Place, Thermal, Tennessee, 6323",
+            streetAddress: 'Moore Place, Thermal, Tennessee, 6323',
           },
           location: {
-            qrLoc: "Kane Place",
+            qrLoc: 'Kane Place',
             qrGeo: {
               latitude: 60.013915,
               longitude: -23.641535,
@@ -237,16 +237,16 @@ class CompleteScreen extends Component {
         {
           _id: 10,
           assigned: {
-            zone: "zone 1",
-            officer: "Pollard",
+            zone: 'zone 1',
+            officer: 'Pollard',
           },
           status: false,
           address: {
             block: 160,
-            streetAddress: "Krier Place, Harmon, Alaska, 3573",
+            streetAddress: 'Krier Place, Harmon, Alaska, 3573',
           },
           location: {
-            qrLoc: "Village Road",
+            qrLoc: 'Village Road',
             qrGeo: {
               latitude: 41.200095,
               longitude: -71.735968,
@@ -256,14 +256,14 @@ class CompleteScreen extends Component {
             latitude: -14.263913,
             longitude: 159.614574,
           },
-          Attendee: "Lane",
+          Attendee: 'Lane',
         },
       ],
     };
   }
 
-  onPress = (dirDetails) => {
-    this.props.navigation.navigate("BlockModel", { dirData: dirDetails });
+  onPress = dirDetails => {
+    this.props.navigation.navigate('BlockModel', {dirData: dirDetails});
   };
 
   componentDidMount() {}
@@ -274,7 +274,7 @@ class CompleteScreen extends Component {
         <View style={styles.progressBar}>
           <ProgressBar
             total={this.state.directories.length}
-            type={"Completed"}
+            type={'Completed'}
             progressTrend={true}
           />
         </View>
@@ -285,13 +285,13 @@ class CompleteScreen extends Component {
         <FlatList
           style={styles.cardContentContainer}
           data={this.state.directories}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <CardEvent onPress={this.onPress} dirDetails={item} />
           )}
-          keyExtractor={(item) => item._id.toString()}
+          keyExtractor={item => item._id.toString()}
         />
       </View>
     );
   }
 }
-export default withNavigation(CompleteScreen);
+export default CompleteScreen;

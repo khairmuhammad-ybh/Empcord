@@ -3,10 +3,10 @@ import { View, Text, Alert } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Callout } from "react-native-maps";
 
 // properties
-import properties from "../utils/properties";
+import properties from "../utils/props.utils";
 
 // Styles
-import styles from "../styles/styles";
+import styles from "../styles/map.styles";
 
 class GMap extends Component {
   render() {
@@ -14,10 +14,7 @@ class GMap extends Component {
     return (
       <MapView
         provider={PROVIDER_GOOGLE}
-        style={{
-          width: "100%",
-          height: 300,
-        }}
+        style={styles.mapView}
         initialRegion={{
           latitude: geo.latitude,
           longitude: geo.longitude,

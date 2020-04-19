@@ -1,32 +1,30 @@
-import * as ACTION from "../actions/user.action";
-
-// Properties
-import properties from "../../utils/properties";
+import * as ACTION from '../actions/user.action';
 
 const initState = {
   name: null,
   password: null,
-  idToken: null
+  idToken: null,
+  userName: null
 };
 
-const UserLoginStore = (state = initState, { type, payload }) => {
+const UserLoginStore = (state = initState, {type, payload}) => {
   switch (type) {
     case ACTION.UPDATE_USER_NAME_STATE: {
       return {
         ...state,
-        name: payload.name
+        name: payload.name,
       };
     }
     case ACTION.UPDATE_USER_PASS_STATE: {
       return {
         ...state,
-        password: payload.password
+        password: payload.password,
       };
     }
     case ACTION.UPDATE_USER_IDTOKEN_STATE: {
       return {
         ...state,
-        idToken: payload.idToken
+        idToken: payload.idToken,
       };
     }
     case ACTION.CLEAR_USER_INFO_STATE: {
@@ -34,20 +32,32 @@ const UserLoginStore = (state = initState, { type, payload }) => {
         ...state,
         name: null,
         password: null,
-        idToken: null
+        idToken: null,
       };
     }
     case ACTION.CLEAR_USER_INFO_NAME_STATE: {
       return {
         ...state,
-        name: null
+        name: null,
       };
     }
     case ACTION.CLEAR_USER_INFO_PASSWORD_STATE: {
       return {
         ...state,
-        password: null
+        password: null,
       };
+    }
+    case ACTION.SET_USER_NAME_STATE: {
+      return {
+        ...state,
+        userName : payload.userName
+      }
+    }
+    case ACTION.CLEAR_USER_NAME_STATE: {
+      return {
+        ...state,
+        userName : null
+      }
     }
     default:
       return state;
