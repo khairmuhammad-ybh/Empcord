@@ -1,10 +1,10 @@
-#Empcord-Mobile-Client (Documentation)
+# Empcord-Mobile-Client (Documentation)
 
-##Source code documentation
+## Source code documentation
 
 ---
 
-##Documentation Content
+## Documentation Content
 
 - [x] [**Navigations**]()
 - [x] [**Styles**]()
