@@ -44,7 +44,7 @@ const SwitchNavigator = createSwitchNavigator(
 const SwitchContainer = createAppContainer(SwitchNavigator);
 ```
 
-##### Details
+### Details
 Navigator name: `'RootStack'`
 
 Navigation stack: `App` & `Auth`

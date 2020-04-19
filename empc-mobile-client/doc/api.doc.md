@@ -18,6 +18,7 @@ Api endpoint to connect the the server for transaction of data between the clien
 ### Usage
 
 **user**
+
 Use for authenticating the user before accessing the application and also for any user related information that need to be retrieved
 
 #### Source code
