@@ -1,8 +1,9 @@
-import { createStackNavigator } from "react-navigation-stack";
+// React Navigation v4
+import {createStackNavigator} from 'react-navigation-stack';
 
 // Screens
-import LoginScreen from "../screens/loginscreen";
-import ResetScreen from "../screens/resetscreen";
+import LoginScreen from '../screens/loginscreen';
+import ResetScreen from '../screens/resetscreen';
 
 const AuthNavigation = createStackNavigator(
   {

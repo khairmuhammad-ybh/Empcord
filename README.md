@@ -1,5 +1,5 @@
 # Empcord
-[![Gitter](https://badges.gitter.im/Empcord-Empc/Empcord.svg)](https://gitter.im/Empcord-Empc/Empcord?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/Empcord-Empc/community.svg)](https://gitter.im/Empcord-Empc/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Empcord development assets
 
