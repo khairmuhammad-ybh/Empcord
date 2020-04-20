@@ -29,10 +29,10 @@ import { ApiTokenService } from './services/api-token.service';
 export namespace TokenServiceContants {
 
   // XXX //
-  export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-private.key'));
-  export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-public.key'));
-  export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/empc-identity-private.key'));
-  export const API_TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/empc-identity-public.key'));
+  export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.private.key'));
+  export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.public.key'));
+  export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.private.key'));
+  export const API_TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.public.key'));
 
   export const API_TOKEN_EXPIRES_IN_VALUE = '99h';
   export const TOKEN_SECRET_VALUE = "pr0+0T0k3nS3rV1ce5";
