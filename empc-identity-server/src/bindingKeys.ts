@@ -64,11 +64,6 @@ const setKeyPath = () => {
   }
 }
 
-// console.log(setKeyPath())'
-// console.log(path.join(__dirname + setKeyPath().auth_private_path))
-// console.log(path.join(__dirname + setKeyPath().auth_public_path))
-// console.log(path.join(__dirname + setKeyPath().api_private_path))
-// console.log(path.join(__dirname + setKeyPath().api_public_path))
 // Contants used for creating/verify JWT services
 export namespace TokenServiceContants {
 
