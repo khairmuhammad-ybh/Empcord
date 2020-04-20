@@ -22,6 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { AccountCreation } from './services/account-creation.interface';
 import { ApiTokenService } from './services/api-token.service';
+import { put } from '@loopback/rest';
 // import { CreationFormValidation } from './services/creation-form-validator';
 
 
@@ -32,7 +33,6 @@ const setKeyPath = () => {
   let auth_private_path = ""
   let api_private_path = ""
   let api_public_path = ""
-
   switch (process.env.ENV) {
     case 'development': {
       auth_public_path = "/../keys/auth.public.key"
@@ -42,10 +42,10 @@ const setKeyPath = () => {
       break;
     }
     case 'production': {
-      auth_public_path = "../../../../empcord-keys/empcord-oauth-public"
-      auth_private_path = "../../../../empcord-keys/empcord-oauth-private"
-      api_public_path = "../../../../empcord-keys/empcord-api-public"
-      api_private_path = "../../../../empcord-keys/empcord-api-private"
+      auth_public_path = "../../../../empcord-keys/empcord.auth.public.key"
+      auth_private_path = "../../../../empcord-keys/empcord.auth.private.key"
+      api_public_path = "../../../../empcord-keys/empcord.api.public.key"
+      api_private_path = "../../../../empcord-keys/empcord.api.private.key"
       break;
     }
     default: {
@@ -64,11 +64,11 @@ const setKeyPath = () => {
   }
 }
 
-// console.log(setKeyPath());
-console.log(path.join(__dirname + setKeyPath().auth_private_path))
-console.log(path.join(__dirname + setKeyPath().auth_public_path))
-console.log(path.join(__dirname + setKeyPath().api_private_path))
-console.log(path.join(__dirname + setKeyPath().api_public_path))
+// console.log(setKeyPath())'
+// console.log(path.join(__dirname + setKeyPath().auth_private_path))
+// console.log(path.join(__dirname + setKeyPath().auth_public_path))
+// console.log(path.join(__dirname + setKeyPath().api_private_path))
+// console.log(path.join(__dirname + setKeyPath().api_public_path))
 // Contants used for creating/verify JWT services
 export namespace TokenServiceContants {
 
