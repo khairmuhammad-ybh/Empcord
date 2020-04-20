@@ -96,6 +96,7 @@ export class ApiTokenService {
 
     }
     catch (err) {
+      console.log(err);
       throw new HttpErrors.Unauthorized('Error signing api token for client');
     }
 
