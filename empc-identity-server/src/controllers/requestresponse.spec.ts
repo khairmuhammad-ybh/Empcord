@@ -293,3 +293,18 @@ export const getUserDetailResponse = {
     }
   }
 }
+
+export const ApiTokenResponse = {
+  description: "Api Token generator",
+  required: true,
+  content: {
+    'application/json': {
+      schema: {
+        title: "ApiTokenResponse",
+        properties: {
+          token: { type: 'string' }
+        }
+      }
+    }
+  }
+}

@@ -23,6 +23,7 @@ import { AuthenticationComponent, registerAuthenticationStrategy } from '@loopba
 import { AuthorizationComponent } from '@loopback/authorization';
 import { EmpcAuthStrategy } from './auth-strategies/empcAuthStrategy';
 import { SECURITY_SCHEME_SPEC, SECURITY_SPEC } from './utils/security-specs';
+import { ApiTokenService } from './services/api-token.service';
 
 
 /**
@@ -84,6 +85,10 @@ export class EmpcIdentityApplication extends BootMixin(
 * to binds all artifacts for this application
 */
   setupBindings(): void {
+    this.bind(TokenServiceBindings.API_SIGN_KEY).to(TokenServiceContants.API_TOKEN_PRIVATE_KEY);
+    this.bind(TokenServiceBindings.API_VERIFY_KEY).to(TokenServiceContants.API_TOKEN_PUBLIC_KEY);
+    this.bind(TokenServiceBindings.API_TOKEN_EXPIRES_IN).to(TokenServiceContants.API_TOKEN_EXPIRES_IN_VALUE);
+    this.bind(TokenServiceBindings.API_TOKEN_SERVICE).toClass(ApiTokenService);
     this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptPasswordHasher)
     this.bind(TokenServiceBindings.TOKEN_SIGN_KEY).to(TokenServiceContants.TOKEN_PRIVATE_KEY)
     this.bind(TokenServiceBindings.TOKEN_VERIFY_KEY).to(TokenServiceContants.TOKEN_PUBLIC_KEY)
@@ -93,5 +98,6 @@ export class EmpcIdentityApplication extends BootMixin(
     this.bind(PasswordHasherBindings.SALT_ROUNDS).to(10);
     this.bind(UserServiceBindings.USER_SERVICE).toClass(EMPCUserService)
     this.bind(FormValidationBindings.REGISTER_FORM_VALIDATOR).toClass(RegisterFormValidator)
+
   }
 }

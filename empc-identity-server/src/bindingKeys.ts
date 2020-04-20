@@ -14,13 +14,14 @@
  *
 --------------------------------------------------------------------------*/
 import { TokenService, UserService } from '@loopback/authentication';
-import { BindingKey } from "@loopback/context";
+import { BindingKey, Binding } from "@loopback/context";
 import { PasswordHasher } from './services/passwordhasher';
 import { User, Credential, NewUser } from './models';
 import { FormValidator } from './services';
 import fs from 'fs';
 import path from 'path';
 import { AccountCreation } from './services/account-creation.interface';
+import { ApiTokenService } from './services/api-token.service';
 // import { CreationFormValidation } from './services/creation-form-validator';
 
 
@@ -28,13 +29,29 @@ import { AccountCreation } from './services/account-creation.interface';
 export namespace TokenServiceContants {
   export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-private.key'));
   export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-public.key'));
+  export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/empc-identity-private.key'));
+  export const API_TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/empc-identity-public.key'));
 
+  export const API_TOKEN_EXPIRES_IN_VALUE = '99h';
   export const TOKEN_SECRET_VALUE = "pr0+0T0k3nS3rV1ce5";
   export const TOKEN_EXPIRES_IN_VALUE = '24h';
 }
 
 // Keys for Authentication Token Based artifacts
 export namespace TokenServiceBindings {
+
+  export const API_SIGN_KEY = BindingKey.create<Buffer>(
+    'api.signing.key'
+  )
+  export const API_VERIFY_KEY = BindingKey.create<Buffer>(
+    'api.verify.key'
+  )
+  export const API_TOKEN_SERVICE = BindingKey.create<ApiTokenService>(
+    'api.token.service'
+  )
+  export const API_TOKEN_EXPIRES_IN = BindingKey.create<string>(
+    'api.token.expires.in.seconds'
+  )
   export const TOKEN_SIGN_KEY = BindingKey.create<Buffer>(
     'authentication.jwt.signing.key'
   )
