@@ -50,6 +50,7 @@ export class ApiTokenService {
     }
 
     try {
+
       await asyncVerify(token, this.api_verify_key, verifyOptions);
 
       let decoded = jwt.decode(token, { complete: true });
@@ -86,6 +87,8 @@ export class ApiTokenService {
       algorithm: 'RS256'
     }
 
+    console.log(this.api_sign_key);
+
     try {
       apiToken = await asyncSign({
         subject: "com.nocorp.empcord"
@@ -93,6 +96,7 @@ export class ApiTokenService {
 
     }
     catch (err) {
+      // console.log(err);
       throw new HttpErrors.Unauthorized('Error signing api token for client');
     }
 
