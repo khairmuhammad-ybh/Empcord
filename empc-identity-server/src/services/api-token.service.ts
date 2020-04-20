@@ -50,6 +50,8 @@ export class ApiTokenService {
     }
 
     try {
+
+      console.log(this.api_sign_key);
       await asyncVerify(token, this.api_verify_key, verifyOptions);
 
       let decoded = jwt.decode(token, { complete: true });
