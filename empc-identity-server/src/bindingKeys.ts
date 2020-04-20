@@ -25,20 +25,59 @@ import { ApiTokenService } from './services/api-token.service';
 // import { CreationFormValidation } from './services/creation-form-validator';
 
 
+// const pt = path.join(__dirname + "../../../../");
+
+const setKeyPath = () => {
+  let auth_public_path = ""
+  let auth_private_path = ""
+  let api_private_path = ""
+  let api_public_path = ""
+
+  switch (process.env.ENV) {
+    case 'development': {
+      auth_public_path = "/../keys/auth.public.key"
+      auth_private_path = "/../keys/auth.private.key"
+      api_public_path = "/../keys/auth.public.key"
+      api_private_path = "/../keys/auth.private.key"
+      break;
+    }
+    case 'production': {
+      auth_public_path = "../../../../empcord-keys/empcord-oauth-public"
+      auth_private_path = "../../../../empcord-keys/empcord-oauth-private"
+      api_public_path = "../../../../empcord-keys/empcord-api-public"
+      api_private_path = "../../../../empcord-keys/empcord-api-private"
+      break;
+    }
+    default: {
+      auth_public_path = "/../keys/auth.public.key"
+      auth_private_path = "/../keys/auth.private.key"
+      api_public_path = "/../keys/auth.public.key"
+      api_private_path = "/../keys/auth.private.key"
+      break;
+    }
+  }
+  return {
+    auth_public_path,
+    auth_private_path,
+    api_public_path,
+    api_private_path
+  }
+}
+
+
 // Contants used for creating/verify JWT services
 export namespace TokenServiceContants {
 
   // XXX //
-  export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.private.key'));
-  export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.public.key'));
-  export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.private.key'));
-  export const API_TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/auth.public.key'));
+  export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + setKeyPath().auth_private_path));
+  export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + setKeyPath().auth_public_path));
+  export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + setKeyPath().api_private_path));
+  export const API_TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + setKeyPath().api_public_path));
 
   export const API_TOKEN_EXPIRES_IN_VALUE = '99h';
   export const TOKEN_SECRET_VALUE = "pr0+0T0k3nS3rV1ce5";
   export const TOKEN_EXPIRES_IN_VALUE = '24h';
 }
-
 // Keys for Authentication Token Based artifacts
 export namespace TokenServiceBindings {
 
