@@ -64,6 +64,7 @@ const setKeyPath = () => {
   }
 }
 
+console.log(setKeyPath());
 
 // Contants used for creating/verify JWT services
 export namespace TokenServiceContants {
