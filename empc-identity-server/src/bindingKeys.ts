@@ -42,10 +42,10 @@ const setKeyPath = () => {
       break;
     }
     case 'production': {
-      auth_public_path = "../../../../empcord-keys/empcord-oauth-public"
-      auth_private_path = "../../../../empcord-keys/empcord-oauth-private"
-      api_public_path = "../../../../empcord-keys/empcord-api-public"
-      api_private_path = "../../../../empcord-keys/empcord-api-private"
+      auth_public_path = "../../../../empcord-keys/empcord-oauth-public.key"
+      auth_private_path = "../../../../empcord-keys/empcord-oauth-private.key"
+      api_public_path = "../../../../empcord-keys/empcord-api-public.key"
+      api_private_path = "../../../../empcord-keys/empcord-api-private.key"
       break;
     }
     default: {
