@@ -27,6 +27,8 @@ import { ApiTokenService } from './services/api-token.service';
 
 // Contants used for creating/verify JWT services
 export namespace TokenServiceContants {
+
+  // XXX //
   export const TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-private.key'));
   export const TOKEN_PUBLIC_KEY = fs.readFileSync(path.join(__dirname + '/../keys/jwt-public.key'));
   export const API_TOKEN_PRIVATE_KEY = fs.readFileSync(path.join(__dirname + '/../keys/empc-identity-private.key'));
