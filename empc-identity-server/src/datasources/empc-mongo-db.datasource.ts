@@ -32,7 +32,6 @@ export class EmpcMongoDbDataSource extends juggler.DataSource
   ) {
     super(dsConfig);
   }
-
   /**
    * Start the datasource when application is started
    */

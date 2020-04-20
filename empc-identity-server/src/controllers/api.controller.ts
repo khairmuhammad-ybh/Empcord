@@ -38,7 +38,6 @@ export class ApiController {
     let token = await this.apiTokenService.generateToken();
     await this.apiTokenService.verifyToken(token);
     return { token: token }
-    // let token = await this.apiTokenService.generateToken();
     // throw new HttpErrors.Unauthorized('Method not implemented yet');
   }
 
