@@ -16,17 +16,61 @@
 import { model, property } from '@loopback/repository';
 import { User } from '.';
 
-@model({ settings: { strict: true } })
-export class NewUser extends User {
+@model()
+export class NewUser {
+
   @property({
     type: 'string',
-    required: false,
+    required: true,
+  })
+  userName: string;
+
+  @property({
+    type: 'string',
+    required: true
+  })
+  firstName: string;
+
+  @property({
+    type: 'string',
+    required: true
+  })
+  lastName: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  email: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  mobileNumber: string;
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+    // default: () => [roles.user.STANDARD]
+  })
+  roles: string[];
+
+  @property({
+    type: 'array',
+    itemType: 'string',
+  })
+  rights?: string[];
+
+  @property({
+    type: 'string',
+    required: true,
   })
   userChoicePassword: string;
 
   @property({
     type: 'string',
-    required: false
+    required: true
   })
   userConfirmPassword: string;
 
@@ -34,15 +78,10 @@ export class NewUser extends User {
 
   // // Indexer property to allow additional data
   // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // [prop: string]: any;
+  [prop: string]: any;
 
   constructor(data?: Partial<NewUser>) {
-    super(data);
+    // super(data);
   }
 }
 
-export interface NewUserRelations {
-  // describe navigational properties here
-}
-
-export type NewUserWithRelations = NewUser & NewUserRelations;

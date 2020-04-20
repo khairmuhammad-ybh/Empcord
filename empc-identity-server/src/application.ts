@@ -14,14 +14,15 @@ import {
   TokenServiceContants,
   PasswordHasherBindings,
   UserServiceBindings,
-  FormValidationBindings
+  FormValidationBindings,
+  AccCreationServiceBindings
 }
   from './bindingKeys';
 import { BcryptPasswordHasher, EMPCUserService, RegisterFormValidator, JWTTokenService } from './services';
 import { AuthenticationComponent, registerAuthenticationStrategy } from '@loopback/authentication';
 import { AuthorizationComponent } from '@loopback/authorization';
 import { EmpcAuthStrategy } from './auth-strategies/empcAuthStrategy';
-import { SECURITY_SCHEME_SPEC, SECURITY_SPEC_OPERATION, SECURITY_SPEC } from './utils/security-specs';
+import { SECURITY_SCHEME_SPEC, SECURITY_SPEC } from './utils/security-specs';
 
 
 /**
@@ -41,14 +42,7 @@ export class EmpcIdentityApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
-    super(options
-      // {
-      //   rest: {
-      //     port: process.argv[process.argv.length - 1] === '--development' ? 3400 : 3100,
-      //     host: 'localhost'
-      //   }
-      // }
-    );
+    super(options);
 
     this.api({
       openapi: '3.0.0',
@@ -65,10 +59,6 @@ export class EmpcIdentityApplication extends BootMixin(
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
 
-    // Customize @loopback/rest-explorer configuration here
-    // this.bind(RestExplorerBindings.CONFIG).to({
-    //   path: '/explorer',
-    // });
     this.component(RestExplorerComponent);
 
     this.setupBindings();

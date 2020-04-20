@@ -26,6 +26,7 @@ export async function EMPCAuthorization(
   metadata: AuthorizationMetadata
 ): Promise<AuthorizationDecision> {
 
+
   let currentUser: UserProfile;
   if (authorizationCtx.principals.length > 0) {
     const user = _.pick(authorizationCtx.principals[0], [
@@ -38,6 +39,7 @@ export async function EMPCAuthorization(
   } else {
     return AuthorizationDecision.DENY;
   }
+
 
   if (!currentUser.roles) {
     return AuthorizationDecision.DENY

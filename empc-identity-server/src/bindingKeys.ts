@@ -20,6 +20,7 @@ import { User, Credential, NewUser } from './models';
 import { FormValidator } from './services';
 import fs from 'fs';
 import path from 'path';
+import { AccountCreation } from './services/account-creation.interface';
 // import { CreationFormValidation } from './services/creation-form-validator';
 
 
@@ -72,5 +73,14 @@ export namespace FormValidationBindings {
   export const REGISTER_FORM_VALIDATOR = BindingKey.create<FormValidator<NewUser>>(
     'registration.form.validator'
   )
+}
+
+export namespace AccCreationServiceBindings {
+  // export const OFFICER_CREATION_SERVICE = BindingKey.create<AccountCreation<Officer>>(
+  //   'officer.creation.service'
+  // )
+  // export const WORKER_CREATION_SERVICE = BindingKey.create<AccountCreation<Worker>>(
+  //   'worker.creation.service'
+  // )
 }
 

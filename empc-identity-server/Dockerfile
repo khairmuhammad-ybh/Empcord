@@ -27,3 +27,5 @@ ENV HOST=0.0.0.0 PORT=3000
 EXPOSE ${PORT}
 CMD ["node", ".", "--dockerize"]
 # CMD ['']
+
+
