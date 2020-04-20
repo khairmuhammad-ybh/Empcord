@@ -32,7 +32,6 @@ export class JWTTokenService implements TokenService {
     @inject(TokenServiceBindings.TOKEN_VERIFY_KEY) private verifyKey: Buffer,
     @inject(TokenServiceBindings.TOKEN_EXPIRES_IN) private jwtExpiresIn: string
   ) { }
-
   /**
    *
    * @param token
