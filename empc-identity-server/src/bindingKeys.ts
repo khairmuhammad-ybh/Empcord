@@ -34,6 +34,7 @@ const setKeyPath = () => {
   let api_private_path = ""
   let api_public_path = ""
 
+  console.log(process.env.ENV)
   switch (process.env.ENV) {
     case 'development': {
       auth_public_path = "/../keys/auth.public.key"
