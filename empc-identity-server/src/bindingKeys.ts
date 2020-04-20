@@ -65,7 +65,7 @@ const setKeyPath = () => {
 }
 
 // console.log(setKeyPath());
-console.log(process.env.ENV);
+console.log("ENV on : " + process.env.ENV);
 console.log(path.join(__dirname + setKeyPath().auth_private_path))
 console.log(path.join(__dirname + setKeyPath().auth_public_path))
 console.log(path.join(__dirname + setKeyPath().api_private_path))
