@@ -8,19 +8,19 @@ export const tokenSchema = {
   },
 };
 
-export const userRolesSchema = {
-  name: 'UserRoles',
-  properties : {
-      roles : 'string'
-  }
-};
+// export const userRolesSchema = {
+//   name: 'UserRoles',
+//   properties: {
+//     role: 'string',
+//   },
+// };
 
-export const userRightsSchema = {
-    name: 'UserRights',
-    properties : {
-        right : 'string'
-    }
-  };
+// export const userRightsSchema = {
+//   name: 'UserRights',
+//   properties: {
+//     right: 'string',
+//   },
+// };
 
 export const userInfoSchema = {
   name: 'UserInfo',
@@ -31,10 +31,14 @@ export const userInfoSchema = {
     lastName: 'string',
     email: 'string',
     mobileNumber: 'int',
-    roles: {type: 'list', objectType: 'UserRoles'},
-    rights: {type: 'list', objectType: 'UserRights'},
+    // roles: {type: 'list', objectType: 'string'},
+    // rights: {type: 'list', objectType: 'string'},
+    roles: 'string',
+    rights: 'string',
     createdDt: 'string',
     status: 'string',
+    officerId: 'string?', // optional
+    zone : 'string'
   },
 };
 
@@ -48,13 +52,13 @@ export const userInfoSchema = {
 // };
 
 export const userSchema = {
-    name: 'User',
-    primaryKey: '_id',
-    properties: {
-      _id: 'int',
-      userInfo: {type: 'UserInfo'},
-    },
-  };
+  name: 'User',
+  primaryKey: '_id',
+  properties: {
+    _id: 'int',
+    userInfo: {type: 'UserInfo'},
+  },
+};
 
 export const dirSchema = {
   name: 'Dir',

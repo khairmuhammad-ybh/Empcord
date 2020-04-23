@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Dimensions, Button, Text} from 'react-native';
 
-import ProgressBarAnimated from 'react-native-progress-bar-animated';
 import * as Progress from 'react-native-progress';
 
 // redux
@@ -34,9 +33,12 @@ class CompletionBar extends Component {
   };
 
   render() {
-    const barWidth = Dimensions.get('screen').width - 30;
+    
+    // let barWidth = null
+    let {type, progressTrend, row} = this.props;
 
-    let {type, progressTrend} = this.props;
+    // if(staticBarwidth ? barWidth = Dimensions.get('screen').width - staticBarwidth :  barWidth = Dimensions.get('screen').width - 30)
+    
 
     return (
       <View>
@@ -54,7 +56,7 @@ class CompletionBar extends Component {
                 ? store.getState().ProgressBar.progressCompleted
                 : store.getState().ProgressBar.progressPending
             }
-            width={barWidth}
+            width={row? (Dimensions.get('screen').width/2) - 60 : Dimensions.get('screen').width - 30}
             height={13}
             borderRadius={6}
             color={'rgba(20,140,240, 1)'}

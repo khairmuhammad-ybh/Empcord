@@ -4,7 +4,8 @@ const initState = {
   name: null,
   password: null,
   idToken: null,
-  userName: null
+  userName: null,
+  userRoles: null
 };
 
 const UserLoginStore = (state = initState, {type, payload}) => {
@@ -57,6 +58,18 @@ const UserLoginStore = (state = initState, {type, payload}) => {
       return {
         ...state,
         userName : null
+      }
+    }
+    case ACTION.SET_USER_ROLES_STATE: {
+      return {
+        ...state,
+        userRoles : payload.userRoles
+      }
+    }
+    case ACTION.CLEAR_USER_ROLES_STATE: {
+      return {
+        ...state,
+        userRoles: null
       }
     }
     default:

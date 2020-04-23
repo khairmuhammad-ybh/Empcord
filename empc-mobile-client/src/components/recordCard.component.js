@@ -4,18 +4,18 @@ import { View, Text, TouchableOpacity } from "react-native";
 // styles
 import styles from "../styles/card.styles";
 
-class CardEvent extends Component {
+class RecordCard extends Component {
   render() {
-    let { onPress, dirDetails } = this.props;
+    let { onPress, recordsDetails } = this.props;
 
     return (
       <TouchableOpacity
         style={styles.cardContainer}
-        onPress={() => onPress(dirDetails)}
+        onPress={() => onPress(recordsDetails)}
       >
         <View
           style={
-            dirDetails.status
+            recordsDetails.status
               ? styles.cardStatus_Complete
               : styles.cardStatus_Pending
           }
@@ -26,20 +26,20 @@ class CardEvent extends Component {
             style={{ width: 100, height: 100, alignSelf: "center"}}
           /> */}
           <View style={styles.innerCardContent}>
-            <Text style={styles.cardDetailsText}>Block: </Text>
-            <Text>{dirDetails.address.block}</Text>
+            <Text style={styles.cardDetailsText}>Name: </Text>
+            <Text>{recordsDetails.attendee.username}</Text>
           </View>
           <View style={styles.innerCardContent}>
-            <Text style={styles.cardDetailsText}>Address: </Text>
-            <Text>{dirDetails.address.streetAddress}</Text>
+            <Text style={styles.cardDetailsText}>Last known location: </Text>
+            <Text>{recordsDetails.blockDetails.address.block}, {recordsDetails.blockDetails.address.streetAddress}</Text>
           </View>
           <View style={styles.innerCardContent}>
-            <Text style={styles.cardDetailsText}>Location: </Text>
-            <Text>{dirDetails.location.qrLoc}</Text>
+            <Text style={styles.cardDetailsText}>Timestamp: </Text>
+            <Text>{recordsDetails.timeStamp}</Text>
           </View>
         </View>
       </TouchableOpacity>
     );
   }
 }
-export default CardEvent;
+export default RecordCard;

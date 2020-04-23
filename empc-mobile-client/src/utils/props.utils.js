@@ -8,6 +8,7 @@ const properties = {
     // API properties
     api_url_user_login: serverProps.server_user_login,
     api_url_user_me: serverProps.server_user_me,
+    api_url_user_getUserDetails: serverProps.server_getUserDetails,
     server_timeout: 3 * 1000, // Server timeout
   
     // Google Map properties

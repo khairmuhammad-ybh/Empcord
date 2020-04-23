@@ -2,25 +2,25 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 
 // styles
-import styles1 from '../styles/dashboard.style';
-import styles2 from '../styles/card.styles';
-import styles3 from '../styles/blockModel.styles';
-import styles4 from '../styles/map.styles';
+import styles1 from '../../styles/dashboard.style';
+import styles2 from '../../styles/card.styles';
+import styles3 from '../../styles/blockModel.styles';
+import styles4 from '../../styles/map.styles';
 
 // components
-import GMap from '../components/googleMap.component';
+import GMap from '../../components/googleMap.component';
 
 class BlockDirDetailsScreen extends Component {
   render() {
 
-    const dirData = this.props.navigation.getParam("dirData", "NO-ID");
-    console.log(dirData);
+    const recordData = this.props.navigation.getParam("recordData", "NO-ID");
+    console.log(recordData);
     return (
       <View style={styles1.cardContentContainer}>
         <View style={styles2.cardContainer}>
           <View
             style={
-              dirData.status
+                recordData.status
                 ? styles2.cardStatus_Complete
                 : styles2.cardStatus_Pending
             }
@@ -29,18 +29,26 @@ class BlockDirDetailsScreen extends Component {
             <View style={styles2.innerCardContent}>
               <Text
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Officer:{' '}
+                Foreman:{' '}
               </Text>
-              <Text>{dirData.assigned.officer}</Text>
+              <Text>{recordData.attendee.username}</Text>
             </View>
             <View style={styles2.innerCardContent}>
               <Text
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
                 Zone:{' '}
               </Text>
-              <Text>{dirData.assigned.zone}</Text>
+              <Text>{recordData.attendee.officerInCharge.zone}</Text>
             </View>
-            <Text style={[styles2.cardDetailsText, styles3.cardBlockDivider]}>
+            <View style={styles2.innerCardContent}>
+              <Text
+                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
+                Officer In-charge:{' '}
+              </Text>
+              <Text>{recordData.attendee.officerInCharge.officerName}</Text>
+            </View>
+            {/* Divider */}
+            <Text style={[styles2.cardDetailsText, styles3.cardBlockDivider]}> 
               Block Details{' '}
             </Text>
             <View style={styles3.cardDivider} />
@@ -49,35 +57,42 @@ class BlockDirDetailsScreen extends Component {
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
                 Block:{' '}
               </Text>
-              <Text>{dirData.address.block}</Text>
+              <Text>{recordData.blockDetails.address.block}</Text>
             </View>
             <View style={styles2.innerCardContent}>
               <Text
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
                 Address:{' '}
               </Text>
-              <Text>{dirData.address.streetAddress}</Text>
+              <Text>{recordData.blockDetails.address.streetAddress}</Text>
             </View>
             <View style={styles2.innerCardContent}>
               <Text
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
                 Location:{' '}
               </Text>
-              <Text>{dirData.location.qrLoc}</Text>
+              <Text>{recordData.blockDetails.location.qrLoc}</Text>
             </View>
             <View style={styles2.innerCardContent}>
               <Text
                 style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
                 Attendee:{' '}
               </Text>
-              <Text>{dirData.Attendee ? dirData.Attendee : 'null'}</Text>
+              <Text>{recordData.Attendee ? recordData.attendee.username : 'null'}</Text>
+            </View>
+            <View style={styles2.innerCardContent}>
+              <Text
+                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
+                TimeStamp:{' '}
+              </Text>
+              <Text>{recordData.timeStamp}</Text>
             </View>
             <View style={(styles2.innerCardContent, styles4.mapDisplayLayout)}>
               <GMap
-                geo={dirData.geo}
-                location={dirData.location}
-                address={dirData.address}
-                status={dirData.status}
+                geo={recordData.blockDetails.geo}
+                location={recordData.blockDetails.location}
+                address={recordData.blockDetails.address}
+                status={recordData.status}
               />
             </View>
           </View>
