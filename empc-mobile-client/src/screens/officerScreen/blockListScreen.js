@@ -260,6 +260,8 @@ class BlockListScreen extends Component {
   }
 
   onPress = dirDetails => {
+
+    console.log("card pressed")
     this.props.navigation.navigate('BlockDetails', {dirData: dirDetails});
   };
 

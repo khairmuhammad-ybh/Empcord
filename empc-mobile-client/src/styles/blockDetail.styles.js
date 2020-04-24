@@ -15,4 +15,5 @@ const stylesBlockModel = StyleSheet.create ({
       },
 
 })
+
 export default stylesBlockModel;

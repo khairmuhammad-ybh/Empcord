@@ -1,100 +1,115 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 
 // styles
-import styles1 from '../../styles/dashboard.style';
-import styles2 from '../../styles/card.styles';
-import styles3 from '../../styles/blockModel.styles';
-import styles4 from '../../styles/map.styles';
+import stylesCard from '../../styles/card.styles';
+import stylesBlock from '../../styles/blockDetail.styles';
 
 // components
 import GMap from '../../components/googleMap.component';
 
 // redux
-import {store} from '../../redux/store'
+import {store} from '../../redux/store';
 
 class BlockDirDetailsScreen extends Component {
   render() {
-
-    const dirData = this.props.navigation.getParam("dirData", "NO-ID");
-    console.log(dirData);
+    const dirData = this.props.navigation.getParam('dirData', 'NO-ID');
+    // console.log(dirData);
+    let topFlex = store.getState().User.userRoles.includes('worker') ? 1 : 0.7;
     return (
-      <View style={styles1.cardContentContainer}>
-        <View style={styles2.cardContainer}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#767676',
+          marginTop: 15,
+          alignSelf: 'center',
+          width: Dimensions.get('screen').width - 30,
+          borderRadius: 5,
+          borderColor: '#fff',
+          borderWidth: 2,
+          marginBottom: 10,
+        }}>
+        <View
+          style={{
+            flex: topFlex,
+            backgroundColor: '#F3F4F9',
+            paddingLeft: 10,
+            paddingRight: 10,
+          }}>
           <View
             style={
               dirData.status
-                ? styles2.cardStatus_Complete
-                : styles2.cardStatus_Pending
+                ? stylesCard.cardStatus_Complete
+                : stylesCard.cardStatus_Pending
             }
           />
-          <View style={styles2.cardContent}>
-            {renderByType()}
-            {/* <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Officer:{' '}
-              </Text>
-              <Text>{dirData.assigned.officer}</Text>
+          {store.getState().User.userRoles.includes('worker') ? (
+            <View>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={[
+                    stylesCard.cardDetailsText,
+                    stylesBlock.cardBlockDetailsText,
+                  ]}>
+                  Officer:{' '}
+                </Text>
+                <Text>{dirData.assigned.officer}</Text>
+              </View>
+              <View style={stylesCard.innerCardContent}>
+                <Text
+                  style={[
+                    stylesCard.cardDetailsText,
+                    stylesBlock.cardBlockDetailsText,
+                  ]}>
+                  Zone:{' '}
+                </Text>
+                <Text>{dirData.assigned.zone}</Text>
+              </View>
             </View>
-            <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Zone:{' '}
-              </Text>
-              <Text>{dirData.assigned.zone}</Text>
-            </View> */}
-            <Text style={[styles2.cardDetailsText, styles3.cardBlockDivider]}>
-              Block Details{' '}
+          ) : null}
+          <Text style={[stylesCard.cardDetailsText, stylesBlock.cardBlockDivider]}>
+            Block Details{' '}
+          </Text>
+          <View style={stylesBlock.cardDivider} />
+          <View style={stylesCard.innerCardContent}>
+            <Text
+              style={[stylesCard.cardDetailsText, stylesBlock.cardBlockDetailsText]}>
+              Block:{' '}
             </Text>
-            <View style={styles3.cardDivider} />
-            <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Block:{' '}
-              </Text>
-              <Text>{dirData.address.block}</Text>
-            </View>
-            <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Address:{' '}
-              </Text>
-              <Text>{dirData.address.streetAddress}</Text>
-            </View>
-            <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Location:{' '}
-              </Text>
-              <Text>{dirData.location.qrLoc}</Text>
-            </View>
-            <View style={styles2.innerCardContent}>
-              <Text
-                style={[styles2.cardDetailsText, styles3.cardBlockDetailsText]}>
-                Attendee:{' '}
-              </Text>
-              <Text>{dirData.Attendee ? dirData.Attendee : 'null'}</Text>
-            </View>
-            <View style={(styles2.innerCardContent, styles4.mapDisplayLayout)}>
-              <GMap
-                geo={dirData.geo}
-                location={dirData.location}
-                address={dirData.address}
-                status={dirData.status}
-              />
-            </View>
+            <Text>{dirData.address.block}</Text>
           </View>
+          <View style={stylesCard.innerCardContent}>
+            <Text
+              style={[stylesCard.cardDetailsText, stylesBlock.cardBlockDetailsText]}>
+              Address:{' '}
+            </Text>
+            <Text>{dirData.address.streetAddress}</Text>
+          </View>
+          <View style={stylesCard.innerCardContent}>
+            <Text
+              style={[stylesCard.cardDetailsText, stylesBlock.cardBlockDetailsText]}>
+              Location:{' '}
+            </Text>
+            <Text>{dirData.location.qrLoc}</Text>
+          </View>
+          <View style={stylesCard.innerCardContent}>
+            <Text
+              style={[stylesCard.cardDetailsText, stylesBlock.cardBlockDetailsText]}>
+              Attendee:{' '}
+            </Text>
+            <Text>{dirData.Attendee ? dirData.Attendee : 'null'}</Text>
+          </View>
+        </View>
+        <View style={{flex: 2, backgroundColor: '#cdd8da'}}>
+          <GMap
+            geo={dirData.geo}
+            location={dirData.location}
+            address={dirData.address}
+            status={dirData.status}
+          />
         </View>
       </View>
     );
   }
-}
-
-function renderByType(){
-  console.log(store.getState().User.userRoles)
-  // if(store.getState().User.userRoles === 'officer'){
-
-  // }else if (store.getState().User.userRoles === 'worker')
 }
 export default BlockDirDetailsScreen;
