@@ -15,6 +15,7 @@ export const insertIdToken = newtokenStore =>
         if (findToken.length > 0) {
           reject(`token exist`);
         }
+        // write token in local db
         realm.write(() => {
           realm.create(tokenSchema.name, newtokenStore);
           resolve(newtokenStore);
@@ -48,24 +49,32 @@ export const deleteAllToken = () =>
       .catch(err => reject(err));
   });
 
+// storing userinfo into db
 export const insertUserInfo = newUserInfo =>
   new Promise((resolve, reject) => {
+    // console.log(newUserInfo)
+    // console.log(JSON.parse(newUserInfo.userInfo.roles))
     Realm.open(userDbOptions)
       .then(realm => {
         // Check if user exist
         let findUser = realm.objects(userSchema.name);
         if (findUser.length > 0) {
+          console.log(`internal db error user exist: ${err}`)
           reject(`user exist`);
         }
         realm.write(() => {
           realm.create(userSchema.name, newUserInfo);
+
           resolve(newUserInfo);
         });
       })
-      .catch(err => reject(err));
+      .catch(err => {
+        console.log(`Cannot insert user: ${err}`)
+        reject(err);
+      });
   });
 
-  export const retrieveUserInfo = () =>
+export const retrieveUserInfo = () =>
   new Promise((resolve, reject) => {
     Realm.open(userDbOptions)
       .then(realm => {
@@ -75,7 +84,7 @@ export const insertUserInfo = newUserInfo =>
       .catch(err => reject(err));
   });
 
-  export const deleteAllUser = () =>
+export const deleteAllUser = () =>
   new Promise((resolve, reject) => {
     Realm.open(userDbOptions)
       .then(realm => {

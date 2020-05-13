@@ -2,18 +2,15 @@ import React, {Component} from 'react';
 import {View, Text, FlatList} from 'react-native';
 
 // Progress Bar
-import ProgressBar from '../components/progressBar.component';
+import ProgressBar from '../../components/progressBar.component';
 
 // Components
-import CardEvent from '../components/cardEvent.component';
+import BlockCard from '../../components/blockCard.component';
 
 // Styles
-import styles from '../styles/dashboard.style';
+import styles from '../../styles/dashboard.style';
 
-// Navigation
-// import { withNavigation } from "react-navigation";
-
-class CompleteScreen extends Component {
+class BlockListScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -263,21 +260,33 @@ class CompleteScreen extends Component {
   }
 
   onPress = dirDetails => {
-    this.props.navigation.navigate('BlockModel', {dirData: dirDetails});
-  };
 
-  componentDidMount() {}
+    console.log("card pressed")
+    this.props.navigation.navigate('BlockDetails', {dirData: dirDetails});
+  };
 
   render() {
     return (
       <View style={styles.ContentContainer}>
-        <View style={styles.progressBar}>
-          <ProgressBar
-            total={this.state.directories.length}
-            type={'Completed'}
-            progressTrend={true}
-          />
+        <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+          <View style={styles.progressBar}>
+            <ProgressBar
+              total={this.state.directories.length}
+              type={'Completed'}
+              progressTrend={true}
+              row={true}
+            />
+          </View>
+          <View style={styles.progressBar}>
+            <ProgressBar
+              total={this.state.directories.length}
+              type={'Pending'}
+              progressTrend={false}
+              row={true}
+            />
+          </View>
         </View>
+
         <View style={styles.scrollContainer}>
           <Text style={styles.locationStatus}>Last updated location:</Text>
           <Text>Woodlands st 32</Text>
@@ -286,7 +295,7 @@ class CompleteScreen extends Component {
           style={styles.cardContentContainer}
           data={this.state.directories}
           renderItem={({item}) => (
-            <CardEvent onPress={this.onPress} dirDetails={item} />
+            <BlockCard onPress={this.onPress} dirDetails={item} />
           )}
           keyExtractor={item => item._id.toString()}
         />
@@ -294,4 +303,4 @@ class CompleteScreen extends Component {
     );
   }
 }
-export default CompleteScreen;
+export default BlockListScreen;

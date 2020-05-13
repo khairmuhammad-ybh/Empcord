@@ -15,6 +15,7 @@ const stylesCard = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     margin: 10,
+    marginStart: 0,
     alignSelf: 'flex-start',
   },
   cardStatus_Pending: {
@@ -23,6 +24,7 @@ const stylesCard = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     margin: 10,
+    marginStart: 0,
     alignSelf: 'flex-start',
   },
   cardContent: {
@@ -35,4 +37,5 @@ const stylesCard = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
 export default stylesCard;

@@ -15,7 +15,7 @@ const stylesMap = StyleSheet.create({
   },
   mapView: {
     width: '100%',
-    height: 300,
+    height: '100%',
   },
   userTitleHeader: {
     fontSize: 22,

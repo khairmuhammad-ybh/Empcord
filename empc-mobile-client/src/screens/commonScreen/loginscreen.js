@@ -10,18 +10,21 @@ import {
 } from 'react-native';
 
 // Styles
-import styles from '../styles/main.styles';
+import styles from '../../styles/main.styles';
 
-import logo from '../../asset/empcord_logo.png';
-import Properties from '../utils/props.utils';
+import logo from '../../../asset/empcord_logo.png';
+import Properties from '../../utils/props.utils';
 
 // Redux
 import {connect} from 'react-redux';
-import {store} from '../redux/store';
-import * as Action from '../redux/actions';
+import {store} from '../../redux/store';
+import * as Action from '../../redux/actions';
 
 // API
-import * as userAuth from '../apis/authentication/user.auth';
+import * as userAuth from '../../apis/authentication/user.auth';
+
+// validator
+import validator from '../../validation/validator';
 
 class loginScreen extends Component {
   static navigationOptions = {
@@ -44,71 +47,6 @@ class loginScreen extends Component {
     );
   };
 
-  onPressLoginUser = usrData => {
-    userAuth
-      .loginUser(usrData)
-      .then(resp => {
-        let user = JSON.parse(JSON.stringify(resp));
-        let userName = user['userInfo']['userName'];
-        // console.log(userName);
-        // Clear token in redux
-        userAuth
-          .removeUserInRedux()
-          .then()
-          .catch(err => {
-            console.log(err);
-          });
-
-        // Store userName in redux
-        userAuth
-          .storeUsernameInRedux(userName)
-          .then()
-          .catch(err => {
-            console.log(err);
-          });
-
-        user.userInfo.roles.forEach(element => {
-          if (element[0] === 'officer') {
-            this.clearLoginFields();
-            this.clearReduxUserInfo();
-            Alert.alert('User Role', `user is ${element[0]}`);
-          } else if (element[0] === 'worker') {
-            this.props.navigation.navigate('BottomTabStack', resp.data);
-          } else {
-            this.clearLoginFields();
-            this.clearReduxUserInfo();
-            Alert.alert(
-              'User Role',
-              `please login to web-portal for ${element[0]}`,
-            );
-          }
-        });
-      })
-      .catch(err => {
-        console.log(`db err: ${err}`);
-
-        if (statusCode === 401 && message === 'Invalid Password') {
-          store.dispatch(Action.clear_user_info_password_state());
-          Alert.alert(`${name}`, `${message}`);
-          this.clearPasswordField();
-        } else if (
-          statusCode === 401 &&
-          message.includes('not a registered User')
-        ) {
-          store.dispatch(Action.clear_user_info_state());
-          Alert.alert(`${name}`, `${message}`);
-          this.clearLoginFields();
-        } else {
-          store.dispatch(Action.clear_user_info_state());
-          Alert.alert(
-            `Error`,
-            `Empty login field(s), please filled both user name and password`,
-          );
-          this.clearLoginFields();
-        }
-      });
-  };
-
   // Clear fields
   clearLoginFields = () => {
     this.usernameTextInput.clear();
@@ -121,6 +59,53 @@ class loginScreen extends Component {
 
   clearReduxUserInfo = () => {
     store.dispatch(Action.clear_user_info_state());
+  };
+
+  onPressLoginUser = userData => {
+    userAuth
+      .loginUser(userData)
+      .then(resp => {
+        console.log(resp);
+        const userName = resp.username;
+        const userRoles = resp.roles;
+        // store basic user info in redux
+        store.dispatch(Action.set_user_name_state({userName: userName}));
+        store.dispatch(Action.set_user_roles_state({userRoles: userRoles}));
+        // clear user data in redux (name, password & idToken)
+        userAuth
+          .removeUserInRedux()
+          .then(() => {
+            // clear login fields (name & password) (under UI)
+            this.clearLoginFields();
+            // validate user roles for navigation
+            validator
+              .validateUserRole(userRoles)
+              .then(resp => {
+                if (resp === 'worker') {
+                  this.props.navigation.navigate('WorkerStack');
+                } else if (resp === 'officer') {
+                  this.props.navigation.navigate('OfficerStack');
+                }
+              })
+              .catch(err => {
+                // navigation err
+                console.log(err);
+              });
+          })
+          .catch(err => {
+            // error in clearing of usere data in redux (name, password & idToken)
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        // error in login user
+        console.log(err);
+        Alert.alert(
+          'Empty Fields',
+          `'${err.property.charAt(0).toUpperCase() +
+            err.property.substring(1)}' ${err.message}`,
+        );
+      });
   };
 
   render() {

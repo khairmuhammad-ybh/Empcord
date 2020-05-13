@@ -8,7 +8,7 @@ import AuthNavigation from './src/navigations/auth.navigation';
 import AppNavigation from './src/navigations/app.navigation';
 
 // Splash screen
-import SplashScreen from './src/screens/splashScreen'
+import SplashScreen from './src/screens/commonScreen/splashScreen'
 
 // Redux
 import {Provider} from 'react-redux';

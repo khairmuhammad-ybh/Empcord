@@ -8,13 +8,13 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {Icon} from 'react-native-elements';
 
 // Screen
-import CompleteScreen from '../screens/completescreen';
-import PendingScreen from '../screens/pendingscreen';
+import CompleteScreen from '../screens/workerScreen/completescreen';
+import PendingScreen from '../screens/workerScreen/pendingscreen';
 
 // components
 import QrFab from '../components/qrFab.component';
 
-const BottomTabStack = createBottomTabNavigator(
+const WorkerBottomTabStack = createBottomTabNavigator(
   {
     CompleteScreen: CompleteScreen,
     QrFab: {
@@ -59,4 +59,4 @@ const BottomTabStack = createBottomTabNavigator(
   },
 );
 
-export default createAppContainer(BottomTabStack);
+export default createAppContainer(WorkerBottomTabStack);
