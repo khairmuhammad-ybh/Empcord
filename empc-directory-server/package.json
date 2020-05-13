@@ -1,0 +1,24 @@
+{
+  "name": "empc-directory-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon .",
+    "db:setup": "node src/datasources/setup.config.js",
+    "start:dev": "env ds_env=\"development\" nodemon .",
+    "start:production": "env ds_env=\"production\" nodemon ."
+  },
+  "author": "noCorp",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.12",
+    "morgan": "^1.10.0",
+    "uuid": "^8.0.0"
+  }
+}
