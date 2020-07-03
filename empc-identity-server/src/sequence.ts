@@ -23,6 +23,7 @@ import {
   RestBindings,
   Send,
   SequenceHandler,
+  HttpErrors,
 } from '@loopback/rest';
 import {
   AuthenticationBindings,
@@ -30,6 +31,8 @@ import {
   AUTHENTICATION_STRATEGY_NOT_FOUND,
   USER_PROFILE_NOT_FOUND,
 } from '@loopback/authentication';
+import { TokenServiceBindings } from './bindingKeys';
+import { ApiTokenService } from './services/api-token.service';
 
 const SequenceActions = RestBindings.SequenceActions;
 
@@ -42,6 +45,8 @@ export class EMPCSequence implements SequenceHandler {
     @inject(SequenceActions.REJECT) public reject: Reject,
     @inject(AuthenticationBindings.AUTH_ACTION)
     protected authenticateRequest: AuthenticateFn,
+    @inject(TokenServiceBindings.API_TOKEN_SERVICE)
+    protected apiTokenService: ApiTokenService
   ) { }
 
 
@@ -49,6 +54,27 @@ export class EMPCSequence implements SequenceHandler {
     try {
       let { request, response } = context;
       const route = this.findRoute(request);
+
+      let apiAuthNeeded: boolean = false;
+      let referer = request.headers.referer;
+      if (referer === undefined && request.url.split('/')[1] === 'explorer') {
+        apiAuthNeeded = false
+      }
+      else if (referer !== undefined && referer === 'http://localhost:3000/explorer/') {
+        apiAuthNeeded = false
+      }
+      else {
+        apiAuthNeeded = true;
+      }
+
+      if (apiAuthNeeded) {
+        let apiKey = request.headers.api_key;
+        if (!apiKey) {
+          throw new HttpErrors.Unauthorized('API KEY not found');
+        }
+
+        await this.apiTokenService.verifyToken(apiKey.toString());
+      }
 
       //call authentication action
       await this.authenticateRequest(request);

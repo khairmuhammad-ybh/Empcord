@@ -34,7 +34,6 @@ export class ApiTokenService {
     private api_verify_key: Buffer
   ) { }
 
-
   async verifyToken(token: string): Promise<boolean> {
 
     if (!token) {
@@ -73,7 +72,6 @@ export class ApiTokenService {
 
   }
 
-
   /**
    *
    */
@@ -86,8 +84,6 @@ export class ApiTokenService {
       audience: 'client',
       algorithm: 'RS256'
     }
-
-    console.log(this.api_sign_key);
 
     try {
       apiToken = await asyncSign({
